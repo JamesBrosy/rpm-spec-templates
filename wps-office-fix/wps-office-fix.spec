@@ -39,7 +39,7 @@ install -Dm755 libfreetype/%{_arch}/libfreetype* -t %{buildroot}/opt/kingsoft/wp
 cd %{buildroot}/opt/kingsoft/wps-office/office6 && ln -s libfreetype.so.6.18.3 libfreetype.so.6 && cd -
 
 %files
-%doc LICENSE
+%license LICENSE
 %dir %{_datadir}/fonts/wps-office
 %{_datadir}/fonts/wps-office/*.ttf
 %dir /opt/kingsoft
