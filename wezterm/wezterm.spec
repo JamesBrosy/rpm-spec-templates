@@ -38,7 +38,7 @@ such as fonts with ligatures, hyperlinks, tabs and multiple
 windows.
 
 %prep
-tar xf %{sources}
+unzip %{sources}
 
 %build
 cd %{name}-main
