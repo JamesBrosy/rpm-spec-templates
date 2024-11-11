@@ -18,7 +18,7 @@ License:        MIT
 URL:            https://github.com/zellij-org/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  rustup, perl, gcc, pandoc
+BuildRequires:  perl, gcc, pandoc
 
 %description
 Zellij is a workspace aimed at developers, ops-oriented people and anyone who loves the terminal.
@@ -31,20 +31,16 @@ language that compiles to WebAssembly.
 
 %prep
 %autosetup
-%if 0%{?fedora}
-# install toolchain
-rustup-init -y
-source "$HOME/.cargo/env"
-%endif
 # Remove prebuilt binaries
 rm -v zellij-utils/assets/plugins/*
-# fetch deps
-cargo fetch --locked
 
 %build
-%if 0%{?fedora}
+# install toolchain
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
-%endif
+# fetch deps
+cargo fetch --locked
+# Update env `RUSTFLAGS`
 export RUSTFLAGS="-Copt-level=3 -Cdebuginfo=2 -Ccodegen-units=1 -Cstrip=none -Cforce-frame-pointers=yes"
 # First rebuilt plugins we just deleted
 # Note: RUSTFLAGS break linking with WASM-files, so we don't use the cargo_build-macro here
@@ -86,13 +82,13 @@ done
 pandoc docs/MANPAGE.md -s -t man -o target/%{name}.1
 
 %install
-install -Dm755 -T target/release/%{name} %{buildroot}%{_bindir}/%{name}
-install -Dm644 -T ./target/%{name}.bash  %{buildroot}%{_datadir}/bash-completion/completions/%{name}
-install -Dm644 -T ./target/%{name}.fish  %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
-install -Dm644 -T ./target/%{name}.zsh   %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
-install -Dm644 -T ./target/%{name}.1     %{buildroot}%{_mandir}/man1/%{name}.1
-install -Dm644 -T %{_builddir}/%{name}-%{version}/assets/logo.png         %{buildroot}%{_datadir}/pixmaps/%{name}.png
-install -Dm644 -T %{_builddir}/%{name}-%{version}/assets/%{name}.desktop  %{buildroot}%{_datadir}/applications/%{name}.desktop
+install -Dsm755 -T target/release/%{name} %{buildroot}%{_bindir}/%{name}
+install -Dm644  -T ./target/%{name}.bash  %{buildroot}%{_datadir}/bash-completion/completions/%{name}
+install -Dm644  -T ./target/%{name}.fish  %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
+install -Dm644  -T ./target/%{name}.zsh   %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
+install -Dm644  -T ./target/%{name}.1     %{buildroot}%{_mandir}/man1/%{name}.1
+install -Dm644  -T %{_builddir}/%{name}-%{version}/assets/logo.png         %{buildroot}%{_datadir}/pixmaps/%{name}.png
+install -Dm644  -T %{_builddir}/%{name}-%{version}/assets/%{name}.desktop  %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 install -d -m 0755 %{buildroot}%{_datadir}/%{name}
@@ -119,4 +115,5 @@ cp -av example/themes %{buildroot}%{_datadir}/%{name}
 %{_datadir}/zsh/*
 
 %changelog
-%autochangelog
+* DATE zellij-org
+- See Github for full changelog
