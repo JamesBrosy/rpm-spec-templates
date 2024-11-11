@@ -39,9 +39,10 @@ such as fonts with ligatures, hyperlinks, tabs and multiple
 windows.
 
 %prep
-%autosetup
+tar xf %{sources}
 
 %build
+cd %{name}-%{ver}
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source ~/.cargo/env
 
