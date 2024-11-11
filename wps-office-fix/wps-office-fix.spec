@@ -46,4 +46,5 @@ cd %{buildroot}/opt/kingsoft/wps-office/office6 && ln -s libfreetype.so.6.18.3 l
 /opt/kingsoft/*
 
 %changelog
-%autochangelog
+* DATE Jo Carllyle
+- See GitHub for full changelog
