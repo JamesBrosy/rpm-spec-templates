@@ -56,4 +56,5 @@ install -Dm644 -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.dis
 
 
 %changelog
-%autochangelog
+* DATE jdx
+- See GitHub for full changelog
