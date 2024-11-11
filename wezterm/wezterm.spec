@@ -9,7 +9,6 @@
 
 %global          _build_id_links none
 %global          debug_package %{nil}
-%define          ver VER
 
 Name:            wezterm
 Version:         VERSION
@@ -17,7 +16,7 @@ Release:         1%{?dist}
 Summary:         Wez's Terminal Emulator.
 License:         MIT
 URL:             https://github.com/wez/%{name}
-Source0:         %{url}/archive/%{ver}/%{name}-%{ver}.tar.gz
+Source0:         %{url}/archive/refs/heads/main.zip
 
 %if 0%{?suse_version}
 Requires: dbus-1, fontconfig, openssl, libxcb1, libxkbcommon0, libxkbcommon-x11-0, libwayland-client0, libwayland-egl1, libwayland-cursor0, Mesa-libEGL1, libxcb-keysyms1, libxcb-ewmh2, libxcb-icccm4
@@ -42,7 +41,7 @@ windows.
 tar xf %{sources}
 
 %build
-cd %{name}-%{ver}
+cd %{name}-main
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source ~/.cargo/env
 
