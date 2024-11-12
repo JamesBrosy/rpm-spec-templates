@@ -39,6 +39,23 @@ windows.
 
 %prep
 unzip %{sources}
+cd %{name}-main
+# read file `.gitmodules`
+if [ ! -f .gitmodules ]; then
+    echo ".gitmodules file not found!"
+    exit 1
+fi
+
+# extract `path` and `url` for every submodule, and clone them
+while IFS= read -r line; do
+    if [[ $line =~ path\ =\ (.*) ]]; then
+        path="${BASH_REMATCH[1]}"
+    elif [[ $line =~ url\ =\ (.*) ]]; then
+        url="${BASH_REMATCH[1]}"
+        echo "Cloning $url into $path..."
+        git clone "${url}" "${path}"
+    fi
+done < .gitmodules
 
 %build
 cd %{name}-main
