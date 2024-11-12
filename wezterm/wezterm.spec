@@ -30,7 +30,9 @@ BuildRequires: Mesa-libEGL-devel
 %else
 BuildRequires: mesa-libEGL-devel
 %endif
-
+%if 0%{?fedora} >= 41
+BuildRequires: openssl-devel-engine
+%endif
 
 %description
 wezterm is a terminal emulator with support for modern features
