@@ -65,6 +65,7 @@ source ~/.cargo/env
 cargo build --release       -p wezterm-gui -p wezterm -p wezterm-mux-server       -p strip-ansi-escapes
 
 %install
+cd %{name}-main
 set -x
 cd .
 install -Dm755  assets/open-wezterm-here          -t %{buildroot}%{_bindir}
