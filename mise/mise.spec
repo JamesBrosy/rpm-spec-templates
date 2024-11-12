@@ -20,7 +20,7 @@ License:        MIT
 URL:            https://github.com/jdx/%{pkgname}
 Source0:        %{url}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
-BuildRequires:  cargo, rust, openssl, openssl-devel, zlib, zlib-devel
+BuildRequires:  openssl, openssl-devel, zlib, zlib-devel
 
 
 %description
@@ -28,9 +28,14 @@ The front-end to your dev env
 
 %prep
 %autosetup
-cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
 %build
+# install toolchain
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
+# fetch deps
+cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+# build release
 cargo build --offline --release --frozen
 ./target/release/%{pkgname} completion zsh > target/_%{pkgname}
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
