@@ -89,7 +89,7 @@ done
 
 # get pandoc
 pandoc_ver=$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest | grep -oP -m 1 '"tag_name": "\K(.*)(?=")')
-curl -L -O https://github.com/jgm/pandoc/releases/download/%{pandoc_ver}/pandoc-${pandoc_ver}-linux-%{arch}.tar.gz
+curl -L -O https://github.com/jgm/pandoc/releases/download/${pandoc_ver}/pandoc-${pandoc_ver}-linux-%{arch}.tar.gz
 tar xf pandoc-${pandoc_ver}-linux-%{arch}.tar.gz && rm -f pandoc-${pandoc_ver}-linux-%{arch}.tar.gz
 chmod +x pandoc-${pandoc_ver}/bin/pandoc
 # generate man doc
