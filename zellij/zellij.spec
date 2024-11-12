@@ -10,6 +10,13 @@
 %global         _build_id_links none
 %global         debug_package %{nil}
 
+%ifarch         x86_64
+%define         arch amd64
+%endif
+%ifarch         aarch64
+%define         arch arm64
+%endif
+
 Name:           zellij
 Version:        VERSION
 Release:        1%{?dist}
@@ -18,7 +25,7 @@ License:        MIT
 URL:            https://github.com/zellij-org/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  perl, gcc, pandoc
+BuildRequires:  perl, gcc
 
 %description
 Zellij is a workspace aimed at developers, ops-oriented people and anyone who loves the terminal.
@@ -79,7 +86,14 @@ for shell in "zsh" "bash" "fish"
 do
   ./target/release/%{name} setup --generate-completion "$shell" > target/%{name}."$shell"
 done
-pandoc docs/MANPAGE.md -s -t man -o target/%{name}.1
+
+# get pandoc
+pandoc_ver=$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest | grep -oP -m 1 '"tag_name": "\K(.*)(?=")')
+curl -L -O https://github.com/jgm/pandoc/releases/download/%{pandoc_ver}/pandoc-%{pandoc_ver}-linux-%{arch}.tar.gz
+tar xf pandoc-%{pandoc_ver}-linux-%{arch}.tar.gz && rm -f pandoc-%{pandoc_ver}-linux-%{arch}.tar.gz
+chmod +x pandoc-%{pandoc_ver}/bin/pandoc
+# generate man doc
+./pandoc-%{pandoc_ver}/bin/pandoc docs/MANPAGE.md -s -t man -o target/%{name}.1
 
 %install
 install -Dsm755 -T target/release/%{name} %{buildroot}%{_bindir}/%{name}
