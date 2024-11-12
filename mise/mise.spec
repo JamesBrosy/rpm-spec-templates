@@ -38,11 +38,11 @@ touch empty_file
 
 
 %install
-install -Dm755 -T target/release/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
-install -Dm644 -T man/man1/%{pkgname}.1     %{buildroot}%{_mandir}/man1/%{pkgname}.1
-install -Dm644 -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-functions/_%{pkgname}
-install -Dm644 -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
-install -Dm644 -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
+install -Dsm755 -T target/release/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
+install -Dm644  -T man/man1/%{pkgname}.1     %{buildroot}%{_mandir}/man1/%{pkgname}.1
+install -Dm644  -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-functions/_%{pkgname}
+install -Dm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
+install -Dm644  -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
 
 
 %files
