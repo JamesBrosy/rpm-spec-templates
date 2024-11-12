@@ -20,7 +20,7 @@ License:        MIT
 URL:            https://github.com/jdx/%{pkgname}
 Source0:        %{url}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
-BuildRequires:  openssl, openssl-devel, zlib, zlib-devel
+BuildRequires:  gcc, openssl, openssl-devel, zlib, zlib-devel
 
 
 %description
