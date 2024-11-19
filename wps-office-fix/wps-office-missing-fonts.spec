@@ -25,7 +25,7 @@ Source0:        %{url}/archive/v%{version}/wps-office-fix-%{version}.tar.gz
 Fix missing fonts for WPS Office
 
 %prep
-tar xf %{_sourcedir}/wps-office-fix-%{version}.tar.gz
+tar xf "%{_sourcedir}/wps-office-fix-%{version}.tar.gz"
 
 %build
 
