@@ -18,18 +18,19 @@ Summary:        WPS Office missing fonts
 
 License:        MIT
 URL:            https://github.com/JamesBrosy/%{pkgname}
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/wps-office-fix-%{version}.tar.gz
 
 
 %description
 Fix missing fonts for WPS Office
 
 %prep
-%autosetup
+tar xf wps-office-fix-%{version}.tar.gz
 
 %build
 
 %install
+cd wps-office-fix-%{version}
 for font in fonts/*.ttf; do
   install -Dm644 "$font" -t %{buildroot}%{_datadir}/fonts/wps-office
 done
