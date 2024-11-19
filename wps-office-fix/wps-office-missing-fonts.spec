@@ -36,7 +36,7 @@ for font in fonts/*.ttf; do
 done
 
 %files
-%license LICENSE
+%license wps-office-fix-%{version}/LICENSE
 %dir %{_datadir}/fonts/wps-office
 %{_datadir}/fonts/wps-office/*.ttf
 
