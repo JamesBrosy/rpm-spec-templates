@@ -40,8 +40,8 @@ The universal proxy platform.
 
 %build
 #install go
-GO_VERSION=$(curl -s https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json | grep -oE '"version": "[0-9]{1}.[0-9]{1,}(.[0-9]{1,})?"' | head -1 | cut -d':' -f2 | sed 's/ //g; s/"//g')
-PACKAGE="go${GO_VERSION}.linux-%{ARCH}.tar.gz"
+GO_VER=$(curl -s https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json | grep -oE '"version": "[0-9]{1}.[0-9]{1,}(.[0-9]{1,})?"' | head -1 | cut -d':' -f2 | sed 's/ //g; s/"//g')
+PACKAGE="go${GO_VER}.linux-%{ARCH}.tar.gz"
 SHA256SUM=$(curl -sSL https://go.dev/dl/ |grep  -A 6 -P "<td class=\"filename\"><.*>${PACKAGE}<.*>" | grep -oP '<tt>\K[^<]+')
 echo "Downloading ${PACKAGE}"
 curl -L -O "https://go.dev/dl/${PACKAGE}"
