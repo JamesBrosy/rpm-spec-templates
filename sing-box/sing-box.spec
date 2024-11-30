@@ -54,8 +54,6 @@ fi
 tar xf ${PACKAGE}
 export PATH="$(pwd)/go/bin:$PATH"
 
-git clone https://aur.archlinux.org/sing-box.git sing-box-aur
-
 # build stable release
 git checkout main
 
@@ -78,13 +76,16 @@ sed -i "/^\[Service\]$/a User=%{name}"              release/config/%{name}*.serv
 
 echo "u %{name} - \"Sing-box Service\" - -" > "release/config/%{name}.sysusers"
 
-install -d completions
-go run ./cmd/sing-box completion bash   > completions/bash
-go run ./cmd/sing-box completion fish   > completions/fish
-go run ./cmd/sing-box completion zsh    > completions/zsh
-
-
-
+echo -n \
+'// Allow sing-box to set domain and default-route
+polkit.addRule(function(action, subject) {
+    if ((action.id == "org.freedesktop.resolve1.set-domains" ||
+         action.id == "org.freedesktop.resolve1.set-default-route" ||
+         action.id == "org.freedesktop.resolve1.set-dns-servers") &&
+        subject.user == "sing-box") {
+        return polkit.Result.YES;
+    }
+});' > release/config/%{name}.rules
 
 %install
 install -Dsm755 %{name}                           -t %{buildroot}%{_bindir}
@@ -92,10 +93,10 @@ install -Dm644 "release/config/config.json"       -t %{buildroot}%{_sysconfdir}/
 install -Dm644 "release/config/%{name}.service"   -t %{buildroot}/usr/lib/systemd/system
 install -Dm644 "release/config/%{name}@.service"  -t %{buildroot}/usr/lib/systemd/system
 install -Dm644 "release/config/%{name}.sysusers"     %{buildroot}/usr/lib/sysusers.d/%{name}.conf
-install -Dm644 "sing-box-aur/sing-box.rules"         %{buildroot}%{_datadir}/polkit-1/rules.d/sing-box.rules
-install -Dm644 completions/bash "%{buildroot}%{_datadir}/bash-completion/completions/%{name}.bash"
-install -Dm644 completions/fish "%{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish"
-install -Dm644 completions/zsh  "%{buildroot}%{_datadir}/zsh/site-functions/_%{name}"
+install -Dm644 "release/config/%{name}.rules"        %{buildroot}%{_datadir}/polkit-1/rules.d/%{name}.rules
+install -Dm644 release/completions/%{name}.bash      %{buildroot}%{_datadir}/bash-completion/completions/%{name}.bash
+install -Dm644 release/completions/%{name}.fish      %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
+install -Dm644 release/completions/%{name}.zsh       %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
 
 
 %files
