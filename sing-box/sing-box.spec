@@ -27,7 +27,7 @@ License:        GPLv3 or later
 URL:            https://sing-box.sagernet.org/
 Source0:        %{name}-%{version}.tar.gz
 
-BuildRequires: git, curl, tar, gcc
+BuildRequires: git, curl, tar
 
 
 %description
@@ -60,7 +60,7 @@ git clone https://aur.archlinux.org/sing-box.git sing-box-aur
 git checkout main
 
 _tags=with_gvisor,with_quic,with_wireguard,with_utls,with_reality_server,with_clash_api,with_ech,with_acme,with_dhcp
-go build \
+CGO_ENABLED=0 go build \
     -v \
     -trimpath \
     -buildmode=pie \
