@@ -27,7 +27,7 @@ License:        GPLv3 or later
 URL:            https://sing-box.sagernet.org/
 Source0:        %{name}-%{version}.tar.gz
 
-BuildRequires: git, curl, tar
+BuildRequires: git, curl, tar, gcc
 
 
 %description
