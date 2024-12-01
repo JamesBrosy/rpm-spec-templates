@@ -76,6 +76,10 @@ sed -i "/^\[Service\]$/a User=%{name}"              release/config/%{name}*.serv
 
 echo "u %{name} - \"Sing-box Service\" - -" > "release/config/%{name}.sysusers"
 
+./sing-box completion bash > completions/bash
+./sing-box completion fish > completions/fish
+./sing-box completion zsh  > completions/zsh
+
 echo -n \
 '// Allow sing-box to set domain and default-route
 polkit.addRule(function(action, subject) {
@@ -94,9 +98,9 @@ install -Dm644 "release/config/%{name}.service"   -t %{buildroot}/usr/lib/system
 install -Dm644 "release/config/%{name}@.service"  -t %{buildroot}/usr/lib/systemd/system
 install -Dm644 "release/config/%{name}.sysusers"     %{buildroot}/usr/lib/sysusers.d/%{name}.conf
 install -Dm644 "release/config/%{name}.rules"        %{buildroot}%{_datadir}/polkit-1/rules.d/%{name}.rules
-install -Dm644 release/completions/%{name}.bash      %{buildroot}%{_datadir}/bash-completion/completions/%{name}.bash
-install -Dm644 release/completions/%{name}.fish      %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
-install -Dm644 release/completions/%{name}.zsh       %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
+install -Dm644 "completions/bash"                    %{buildroot}%{_datadir}/bash-completion/completions/%{name}.bash
+install -Dm644 "completions/fish"                    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
+install -Dm644 "completions/zsh"                     %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
 
 
 %files
