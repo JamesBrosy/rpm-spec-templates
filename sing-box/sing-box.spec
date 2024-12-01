@@ -76,6 +76,7 @@ sed -i "/^\[Service\]$/a User=%{name}"              release/config/%{name}*.serv
 
 echo "u %{name} - \"Sing-box Service\" - -" > "release/config/%{name}.sysusers"
 
+install -d completions
 ./sing-box completion bash > completions/bash
 ./sing-box completion fish > completions/fish
 ./sing-box completion zsh  > completions/zsh
