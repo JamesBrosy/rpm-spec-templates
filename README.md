@@ -4,3 +4,4 @@
 - [mise](mise)
 - [zellij](zellij)
 - [wezterm](wezterm)
+- [sing-box](sing-box)
