@@ -20,6 +20,7 @@ License:        MIT
 URL:            https://github.com/JamesBrosy/wps-office-fix
 Source0:        %{url}/archive/v%{version}/wps-office-fix-%{version}.tar.gz
 
+BuildArch:      noarch
 
 %description
 Fix missing fonts for WPS Office
