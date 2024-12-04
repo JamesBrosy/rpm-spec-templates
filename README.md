@@ -5,5 +5,5 @@
 - [mise](tools/mise)
 - [zellij](tools/zellij)
 - [wezterm](tools/wezterm)
-- [sing-box](sing-box)
+- [sing-box](sing-box/sing-box)
 - [zsh-completions](zsh-users/zsh-completions)
