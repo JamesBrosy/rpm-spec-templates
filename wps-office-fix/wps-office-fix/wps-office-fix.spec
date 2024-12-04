@@ -16,7 +16,7 @@ Version:        VERSION
 Release:        1%{?dist}
 Summary:        WPS Office Fix
 
-License:        MIT
+License:        MIT and others
 URL:            https://github.com/JamesBrosy/%{pkgname}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
