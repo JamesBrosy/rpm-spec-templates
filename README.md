@@ -5,3 +5,4 @@
 - [zellij](tools/zellij)
 - [wezterm](tools/wezterm)
 - [sing-box](sing-box)
+- [zsh-completions](zsh-users)
