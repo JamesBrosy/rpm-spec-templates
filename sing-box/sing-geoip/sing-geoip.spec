@@ -1,5 +1,5 @@
 Name:           sing-geoip
-Version:        1.1
+Version:        VERSION
 Release:        1%{?dist}
 Summary:        GeoIP Database and Rule Sets for sing-box
 
@@ -62,4 +62,5 @@ git checkout main
 
 
 %changelog
-%autochangelog
+* DATE SagerNet <contact-sagernet@sekai.icu>
+- See GitHub for full changelog
