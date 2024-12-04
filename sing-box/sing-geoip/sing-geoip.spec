@@ -64,12 +64,14 @@ git checkout main
 %license LICENSE
 
 %files db
+%dir %{_datadir}/sing-box/geoip-db
 %dir %{_datadir}/sing-box
-%{_datadir}/sing-box/*
+%{_datadir}/sing-box/geoip-db/*
 
 %files rule-set
+%dir %{_datadir}/sing-box/geoip-rule-set
 %dir %{_datadir}/sing-box
-%{_datadir}/sing-box/*
+%{_datadir}/sing-box/geoip-rule-set/*
 
 
 %changelog
