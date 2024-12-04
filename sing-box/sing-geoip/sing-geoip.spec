@@ -16,7 +16,7 @@ GeoIP Database and Rule Sets for sing-box
 
 %package        db
 Summary:        GeoIP Database for sing-box
-Requires:       sing-box
+Requires:       sing-box, sing-geoip
 BuildArch:      noarch
 
 %description    db
@@ -24,7 +24,7 @@ GeoIP Database for sing-box
 
 %package        rule-set
 Summary:        GeoIP Rule Sets for sing-box
-Requires:       sing-box
+Requires:       sing-box, sing-geoip
 BuildArch:      noarch
 
 %description    rule-set
