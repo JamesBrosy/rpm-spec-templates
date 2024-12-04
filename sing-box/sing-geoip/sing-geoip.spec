@@ -8,7 +8,7 @@ URL:            https://github.com/SagerNet/%{name}
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  git
-Requires:       sing-box
+Requires:       sing-box, sing-geoip-db, sing-geoip-rule-set
 BuildArch:      noarch
 
 %description
