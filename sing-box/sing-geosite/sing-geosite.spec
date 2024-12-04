@@ -1,3 +1,12 @@
+#
+# spec file for package sing-geosite
+#
+# Copyright (c) 2024 Jo Carllyle
+#
+
+# Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
+#
+
 Name:           sing-geosite
 Version:        VERSION
 Release:        1%{?dist}
@@ -56,11 +65,11 @@ git checkout main
 
 %files db
 %dir %{_datadir}/sing-box
-%{_datadir}/sing-box/geosite-db/*
+%{_datadir}/sing-box/*
 
 %files rule-set
 %dir %{_datadir}/sing-box
-%{_datadir}/sing-box/geosite-rule-set/*
+%{_datadir}/sing-box/*
 
 
 %changelog
