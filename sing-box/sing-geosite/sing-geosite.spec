@@ -64,11 +64,13 @@ git checkout main
 %license LICENSE
 
 %files db
+%license LICENSE
 %dir %{_datadir}/sing-box/geosite-db
 %dir %{_datadir}/sing-box
 %{_datadir}/sing-box/geosite-db/*
 
 %files rule-set
+%license LICENSE
 %dir %{_datadir}/sing-box/geosite-rule-set
 %dir %{_datadir}/sing-box
 %{_datadir}/sing-box/geosite-rule-set/*
