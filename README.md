@@ -7,3 +7,5 @@
 - [wezterm](tools/wezterm)
 - [sing-box](sing-box/sing-box)
 - [zsh-completions](zsh-users/zsh-completions)
+- [sing-geoip](sing-box/sing-geoip)
+- [sing-geosite](sing-box/sing-geosite)
