@@ -39,6 +39,7 @@ cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 cargo build --offline --release --frozen
 ./target/release/%{pkgname} completion zsh > target/_%{pkgname}
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
+./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
 touch empty_file
 
 
@@ -47,6 +48,7 @@ install -Dsm755 -T target/release/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
 install -Dm644  -T man/man1/%{pkgname}.1     %{buildroot}%{_mandir}/man1/%{pkgname}.1
 install -Dm644  -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-functions/_%{pkgname}
 install -Dm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
+install -Dm644  -T target/%{pkgname}.fish    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
 install -Dm644  -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
 
 
@@ -56,6 +58,7 @@ install -Dm644  -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.di
 %{_mandir}/man1/*
 %{_datadir}/bash-completion/completions/%{pkgname}
 %{_datadir}/zsh/site-functions/_%{pkgname}
+%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
 %dir /usr/lib/%{pkgname}
 /usr/lib/%{pkgname}/.disable-self-update
 
