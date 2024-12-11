@@ -14,7 +14,7 @@ Summary:        CLI system information tool written in Bash
 
 License:        MIT
 URL:            https://github.com/dylanaraps/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 Requires:       bash >= 3.2
