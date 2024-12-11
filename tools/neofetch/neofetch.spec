@@ -44,7 +44,7 @@ install -Dm644 %{name}.1 -t %{buildroot}%{_mandir}/man1
 %files
 %{_bindir}/%{name}
 %license LICENSE.md
-%doc README.md CHANGELOG.md
+%doc README.md
 %{_mandir}/man1/%{name}.1*
 
 %changelog
