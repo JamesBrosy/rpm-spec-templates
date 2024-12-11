@@ -38,7 +38,8 @@ sed 's,/usr/bin/env bash,/bin/bash,g' -i neofetch
 %build
 
 %install
-%make_install
+install -Dm755 %{name}   -t %{buildroot}%{_bindir}
+install -Dm644 %{name}.1 -t %{buildroot}%{_mandir}/man1
 
 %files
 %{_bindir}/%{name}
