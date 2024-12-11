@@ -102,6 +102,7 @@ install -Dm644 "release/config/%{name}.rules"        %{buildroot}%{_datadir}/pol
 install -Dm644 "completions/bash"                    %{buildroot}%{_datadir}/bash-completion/completions/%{name}.bash
 install -Dm644 "completions/fish"                    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
 install -Dm644 "completions/zsh"                     %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
+install -dm755 %{buildroot}%{_datadir}/%{name}
 
 
 %files
@@ -119,6 +120,7 @@ install -Dm644 "completions/zsh"                     %{buildroot}%{_datadir}/zsh
 %{_datadir}/zsh/*
 %dir %{_datadir}/bash-completion
 %{_datadir}/bash-completion/*
+%dir %{_datadir}/%{name}
 
 
 %changelog
