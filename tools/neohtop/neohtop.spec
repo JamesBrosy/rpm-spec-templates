@@ -7,6 +7,9 @@
 # Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
 #
 
+%global         _build_id_links none
+%global         debug_package %{nil}
+
 %ifarch         x86_64
 %define         arch1 x64
 %define         arch2 amd64
@@ -77,7 +80,7 @@ install -Dm644  src-tauri/target/%{_arch}-unknown-linux-gnu/release/bundle/deb/%
 %license LICENSE
 %{_bindir}/%{pkgname}
 %{_datadir}/icons/*
-%{_datadir}/completions/*
+%{_datadir}/applications/*
 
 
 %changelog
