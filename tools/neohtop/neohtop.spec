@@ -16,14 +16,16 @@
 %define         arch2 arm64
 %endif
 
-Name:           NeoHtop
+%define         pkgname NeoHtop
+
+Name:           neohtop
 Version:        VERSION
 Release:        1%{?dist}
 Summary:        A cross-platform system monitor
 
 License:        MIT
 URL:            https://abdenasser.github.io/neohtop
-Source0:        https://github.com/Abdenasser/neohtop/archive/v%{version}/neohtop-%{version}.tar.gz
+Source0:        https://github.com/Abdenasser/neohtop/archive/v%{version}/%{name}-%{version}.tar.gz
 
 %if 0%{?suse_version}
 BuildRequires:  cairo-devel, atkmm-devel, libopenssl-devel, pango-devel, gtk3-devel, libsoup-devel, webkit2gtk3-devel, librsvg-devel
@@ -63,16 +65,16 @@ npm run tauri build -- --target %{_arch}-unknown-linux-gnu --bundles deb
 
 
 %install
-install -Dsm755 src-tauri/target/%{_arch}-unknown-linux-gnu/release/%{name} -t %{buildroot}%{_bindir}
-install -Dm644  src-tauri/target/%{_arch}-unknown-linux-gnu/release/bundle/deb/%{name}_%{version}_%{arch2}/data/usr/share/applications/%{name}.desktop              -t %{buildroot}%{_datadir}/applications
-install -Dm644  src-tauri/target/%{_arch}-unknown-linux-gnu/release/bundle/deb/%{name}_%{version}_%{arch2}/data/usr/share/icons/hicolor/128x128/apps/%{name}.png    -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
-install -Dm644  src-tauri/target/%{_arch}-unknown-linux-gnu/release/bundle/deb/%{name}_%{version}_%{arch2}/data/usr/share/icons/hicolor/256x256@2/apps/%{name}.png  -t %{buildroot}%{_datadir}/icons/hicolor/256x256@2/apps
-install -Dm644  src-tauri/target/%{_arch}-unknown-linux-gnu/release/bundle/deb/%{name}_%{version}_%{arch2}/data/usr/share/icons/hicolor/32x32/apps/%{name}.png      -t %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
+install -Dsm755 src-tauri/target/%{_arch}-unknown-linux-gnu/release/%{pkgname} -t %{buildroot}%{_bindir}
+install -Dm644  src-tauri/target/%{_arch}-unknown-linux-gnu/release/bundle/deb/%{pkgname}_%{version}_%{arch2}/data/usr/share/applications/%{pkgname}.desktop              -t %{buildroot}%{_datadir}/applications
+install -Dm644  src-tauri/target/%{_arch}-unknown-linux-gnu/release/bundle/deb/%{pkgname}_%{version}_%{arch2}/data/usr/share/icons/hicolor/128x128/apps/%{pkgname}.png    -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
+install -Dm644  src-tauri/target/%{_arch}-unknown-linux-gnu/release/bundle/deb/%{pkgname}_%{version}_%{arch2}/data/usr/share/icons/hicolor/256x256@2/apps/%{pkgname}.png  -t %{buildroot}%{_datadir}/icons/hicolor/256x256@2/apps
+install -Dm644  src-tauri/target/%{_arch}-unknown-linux-gnu/release/bundle/deb/%{pkgname}_%{version}_%{arch2}/data/usr/share/icons/hicolor/32x32/apps/%{pkgname}.png      -t %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 
 
 %files
 %license LICENSE
-%{_bindir}/%{name}
+%{_bindir}/%{pkgname}
 %{_datadir}/icons/*
 %{_datadir}/completions/*
 
