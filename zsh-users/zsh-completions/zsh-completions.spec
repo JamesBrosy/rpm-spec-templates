@@ -15,7 +15,7 @@
 Name:           zsh-completions
 Version:        VERSION
 Group:          Development/Tools
-Release:        RELEASE%{?dist}
+Release:        1%{?dist}
 Summary:        Additional completion definitions for Zsh.
 
 License:        MIT
