@@ -33,7 +33,7 @@ BuildRequires:  cairo-devel, atkmm-devel, libopenssl-devel, pango-devel, gtk3-de
 BuildRequires:  openssl-devel, gtk3-devel, webkit2gtk4.1-devel >= 2.40, libsoup3-devel, javascriptcoregtk4.1-devel, librsvg2-devel
 %endif
 
-BuildRequires:  gcc, tar, xz, jq
+BuildRequires:  gcc, tar, xz, jq, git
 BuildRequires:  glib2-devel
 %if 0%{?suse_version}
 Requires:       libwebkit2gtk-4_1-0
