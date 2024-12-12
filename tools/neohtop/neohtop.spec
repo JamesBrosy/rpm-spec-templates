@@ -28,7 +28,7 @@ Summary:        A cross-platform system monitor
 
 License:        MIT
 URL:            https://abdenasser.github.io/neohtop
-Source0:        https://github.com/Abdenasser/neohtop/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 
 %if 0%{?suse_version}
 BuildRequires:  cairo-devel, atkmm-devel, libopenssl-devel, pango-devel, gtk3-devel, libsoup-devel, webkit2gtk3-devel, librsvg-devel
