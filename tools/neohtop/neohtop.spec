@@ -58,6 +58,7 @@ tar xf node-${NODE_LTS}-linux-%{arch1}.tar
 export PATH="$(pwd)/node-${NODE_LTS}-linux-%{arch1}/bin:$PATH"
 # setup rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"
 # install dependencies
 npm i
 # build
