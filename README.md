@@ -9,3 +9,5 @@
 - [zsh-completions](zsh-users/zsh-completions)
 - [sing-geoip](sing-box/sing-geoip)
 - [sing-geosite](sing-box/sing-geosite)
+- [neofetch](tools/neofetch)
+- [neohtop](tools/neohtop)
