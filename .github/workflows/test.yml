@@ -32,7 +32,7 @@ jobs:
           LATEST_VERSION=$(.github/get-version.sh $pkg_owner $pkgname)
           LOCAL_VERSION=$(cat .github/mise-version)
       - name: Run a multi-line script
-        if: ${LATEST_VERSION} == ${LOCAL_VERSION}
+        if: LATEST_VERSION == LOCAL_VERSION
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
