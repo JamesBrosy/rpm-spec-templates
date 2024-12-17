@@ -2,7 +2,7 @@ name: "build zellij"
 
 # Controls when the workflow will run
 on:
-  # copr build mise every day.
+  # copr build zellij every day.
   schedule:
     - cron: '0 0 * * *'
 
@@ -47,12 +47,12 @@ jobs:
           COPR_API_TOKEN_CONFIG: ${{ secrets.COPR_API_TOKEN_CONFIG }}
         with:
           owner: ${{ secrets.OWNER }}
-          package-name: mise
+          package-name: zellij
           project-name: tools
       - name: Update version
         if: steps.get_versions.outputs.latest_version != steps.get_versions.outputs.old_version
         run: |
-          echo ${{ steps.get_versions.outputs.latest_version }} > .github/mise-version
+          echo ${{ steps.get_versions.outputs.latest_version }} > .github/${pkgname}-version
           bash .github/commit-changes.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
