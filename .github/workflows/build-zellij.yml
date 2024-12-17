@@ -1,0 +1,58 @@
+name: "build zellij"
+
+# Controls when the workflow will run
+on:
+  # copr build mise every day.
+  schedule:
+    - cron: '0 0 * * *'
+
+  workflow_dispatch:
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    name: build zellij
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      pkg_owner: "zellij-org"
+      pkgname: "zellij"
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: checkout to execute local action
+        uses: actions/checkout@v4
+      - name: setup modules
+        run: |
+          pip3 install copr
+      - name: get latest version
+        id: get_versions
+        run: |
+          LATEST_VERSION=$(bash .github/get-version.sh $pkg_owner $pkgname)
+          if [[ ! -f .github/${pkgname}-version ]]; then
+            OLD_VERSION="-1"
+          else
+            OLD_VERSION=$(cat .github/${pkgname}-version)
+          fi
+          echo "latest_version=${LATEST_VERSION}" >> $GITHUB_OUTPUT
+          echo "old_version=${OLD_VERSION}" >> $GITHUB_OUTPUT
+      - name: copr-build
+        if: steps.get_versions.outputs.latest_version != steps.get_versions.outputs.old_version
+        uses: akdev1l/copr-build@main
+        env:
+          COPR_API_TOKEN_CONFIG: ${{ secrets.COPR_API_TOKEN_CONFIG }}
+        with:
+          owner: ${{ secrets.OWNER }}
+          package-name: mise
+          project-name: tools
+      - name: Update version
+        if: steps.get_versions.outputs.latest_version != steps.get_versions.outputs.old_version
+        run: |
+          echo ${{ steps.get_versions.outputs.latest_version }} > .github/mise-version
+          bash .github/commit-changes.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
