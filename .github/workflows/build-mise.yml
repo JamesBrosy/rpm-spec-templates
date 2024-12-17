@@ -5,6 +5,9 @@ name: "build mise"
 # Controls when the workflow will run
 on:
   # copr build mise every day.
+  schedule:
+    - cron: '0 0 * * *'
+
   workflow_dispatch:
 
 
@@ -32,7 +35,7 @@ jobs:
         id: get_versions
         run: |
           LATEST_VERSION=$(bash .github/get-version.sh $pkg_owner $pkgname)
-          OLD_VERSION=$(cat .github/mise-version)
+          OLD_VERSION=$(cat .github/${pkgname}-version)
           echo "latest_version=${LATEST_VERSION}" >> $GITHUB_OUTPUT
           echo "old_version=${OLD_VERSION}" >> $GITHUB_OUTPUT
       - name: copr-build
@@ -49,3 +52,5 @@ jobs:
         run: |
           echo ${{ steps.get_versions.outputs.latest_version }} > .github/mise-version
           bash .github/commit-changes.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
