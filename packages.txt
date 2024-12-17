@@ -1,0 +1,11 @@
+wps-office-fix
+wps-office-missing-fonts
+mise
+zellij
+wezterm
+sing-box
+zsh-completions
+sing-geoip
+sing-geosite
+neofetch
+neohtop
