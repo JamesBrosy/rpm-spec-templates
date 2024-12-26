@@ -146,14 +146,15 @@ cp -av example/themes %{buildroot}%{_datadir}/%{name}
 
 %{_mandir}/man1/*
 
-%{_datadir}/bash-completion/completions/%{name}
+%files bash-completion
+%{bash_completions_dir}/%{name}
 
-%dir %{_datadir}/fish
-%{_datadir}/fish/*
+%files zsh-completion
+%{zsh_completions_dir}/_%{name}
 
-%dir %{_datadir}/zsh
-%{_datadir}/zsh/*
+%files fish-completion
+%{fish_completions_dir}/%{name}.fish
 
 %changelog
-* DATE zellij-org
+* DATE zellij-org <aram@poor.dev>
 - See Github for full changelog
