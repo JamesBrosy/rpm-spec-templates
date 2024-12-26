@@ -1,0 +1,133 @@
+#
+# spec file for package zellij
+#
+# Copyright (c) 2024 Jo Carllyle
+#
+
+# Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
+#
+
+%global         _build_id_links none
+%global         debug_package %{nil}
+
+%ifarch         x86_64
+%define         arch amd64
+%endif
+%ifarch         aarch64
+%define         arch arm64
+%endif
+
+Name:           zellij
+Version:        VERSION
+Release:        1%{?dist}
+Summary:        Terminal workspace with batteries included
+License:        MIT
+URL:            https://github.com/zellij-org/%{name}
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  perl, gcc, curl
+
+%description
+Zellij is a workspace aimed at developers, ops-oriented people and anyone who loves the terminal.
+At its core, it is a terminal multiplexer (similar to tmux and screen), but this is merely its
+infrastructure layer.
+
+Zellij includes a layout system, and a plugin system allowing one to create plugins in any
+language that compiles to WebAssembly.
+
+
+%prep
+%autosetup
+# Remove prebuilt binaries
+rm -v zellij-utils/assets/plugins/*
+
+%build
+# install toolchain
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
+# fetch deps
+cargo fetch --locked
+# Update env `RUSTFLAGS`
+export RUSTFLAGS="-Copt-level=3 -Cdebuginfo=2 -Ccodegen-units=1 -Cstrip=none -Cforce-frame-pointers=yes"
+# First rebuilt plugins we just deleted
+# Note: RUSTFLAGS break linking with WASM-files, so we don't use the cargo_build-macro here
+pushd default-plugins/compact-bar
+cargo build --offline --release --target=wasm32-wasi
+popd
+pushd default-plugins/status-bar
+cargo build --offline --release --target=wasm32-wasi
+popd
+pushd default-plugins/tab-bar
+cargo build --offline --release --target=wasm32-wasi
+popd
+pushd default-plugins/strider
+cargo build --offline --release --target=wasm32-wasi
+popd
+pushd default-plugins/session-manager
+cargo build --offline --release --target=wasm32-wasi
+popd
+pushd default-plugins/fixture-plugin-for-tests
+cargo build --offline --release --target=wasm32-wasi
+popd
+pushd default-plugins/configuration
+cargo build --offline --release --target=wasm32-wasi
+popd
+pushd default-plugins/plugin-manager
+cargo build --offline --release --target=wasm32-wasi
+popd
+
+# Move the results to the place they are expected
+mv -v target/wasm32-wasi/release/*.wasm zellij-utils/assets/plugins/
+
+# Build zellij proper
+cargo build --offline --release --features unstable
+
+for shell in "zsh" "bash" "fish"
+do
+  ./target/release/%{name} setup --generate-completion "$shell" > target/%{name}."$shell"
+done
+
+# get pandoc
+pandoc_ver=$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest | grep -oP -m 1 '"tag_name": "\K(.*)(?=")')
+curl -L -O https://github.com/jgm/pandoc/releases/download/${pandoc_ver}/pandoc-${pandoc_ver}-linux-%{arch}.tar.gz
+tar xf pandoc-${pandoc_ver}-linux-%{arch}.tar.gz && rm -f pandoc-${pandoc_ver}-linux-%{arch}.tar.gz
+chmod +x pandoc-${pandoc_ver}/bin/pandoc
+# generate man doc
+./pandoc-${pandoc_ver}/bin/pandoc docs/MANPAGE.md -s -t man -o target/%{name}.1
+
+%install
+install -Dsm755 -T target/release/%{name} %{buildroot}%{_bindir}/%{name}
+install -Dm644  -T ./target/%{name}.bash  %{buildroot}%{_datadir}/bash-completion/completions/%{name}
+install -Dm644  -T ./target/%{name}.fish  %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
+install -Dm644  -T ./target/%{name}.zsh   %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
+install -Dm644  -T ./target/%{name}.1     %{buildroot}%{_mandir}/man1/%{name}.1
+install -Dm644  -T %{_builddir}/%{name}-%{version}/assets/logo.png         %{buildroot}%{_datadir}/pixmaps/%{name}.png
+install -Dm644  -T %{_builddir}/%{name}-%{version}/assets/%{name}.desktop  %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+
+install -d -m 0755 %{buildroot}%{_datadir}/%{name}
+cp -av example/themes %{buildroot}%{_datadir}/%{name}
+
+
+%files
+%license LICENSE.md
+%doc README.md docs/ARCHITECTURE.md docs/MANPAGE.md docs/TERMINOLOGY.md docs/THIRD_PARTY_INSTALL.md
+%{_bindir}/%{name}
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/themes
+%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/applications/%{name}.desktop
+
+%{_mandir}/man1/*
+
+%{_datadir}/bash-completion/completions/%{name}
+
+%dir %{_datadir}/fish
+%{_datadir}/fish/*
+
+%dir %{_datadir}/zsh
+%{_datadir}/zsh/*
+
+%changelog
+* DATE zellij-org
+- See Github for full changelog
