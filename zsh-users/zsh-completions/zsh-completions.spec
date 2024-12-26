@@ -48,5 +48,5 @@ install -Dm644 src/_* -t %{buildroot}/usr/share/zsh/site-functions/
 
 
 %changelog
-* DATE zsh-users
+* DATE zsh-users <zsh-users@www.zsh.org>
 - See GitHub for full changelog
