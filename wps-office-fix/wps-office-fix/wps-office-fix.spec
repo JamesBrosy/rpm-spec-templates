@@ -20,9 +20,22 @@ License:        MIT and others
 URL:            https://github.com/JamesBrosy/%{pkgname}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+Requires:       wps-office-fix-missing-fonts, wps-office-fix-libfreetype
 
 %description
 Fix some problems of WPS Office after installation
+
+%package        missing-fonts
+Summary:        WPS Office missing fonts
+
+%description    missing-fonts
+WPS Office missing fonts
+
+%package        libfreetype
+Summary:        WPS Office freetype library
+
+%description    libfreetype
+WPS Office freetype library
 
 %prep
 %autosetup
@@ -40,11 +53,17 @@ cd %{buildroot}/opt/kingsoft/wps-office/office6 && ln -s libfreetype.so.6.18.3 l
 
 %files
 %license LICENSE
+
+%files missing-fonts
+%license LICENSE
 %dir %{_datadir}/fonts/wps-office
 %{_datadir}/fonts/wps-office/*.ttf
+
+%files libfreetype
+%license LICENSE
 %dir /opt/kingsoft
 /opt/kingsoft/*
 
 %changelog
-* DATE Jo Carllyle
+* DATE Jo Carllyle <JamesBrosy@users.noreply.github.com>
 - See GitHub for full changelog
