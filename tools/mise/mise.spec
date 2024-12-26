@@ -86,13 +86,13 @@ install -Dm644  -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.di
 /usr/lib/%{pkgname}/.disable-self-update
 
 %files bash-completion
-%{bash_completions_dir}/%{name}
+%{_datadir}/bash-completion/*
 
 %files zsh-completion
-%{zsh_completions_dir}/_%{name}
+%{_datadir}/zsh/*
 
 %files fish-completion
-%{fish_completions_dir}/%{name}.fish
+%{_datadir}/fish/*
 
 
 %changelog
