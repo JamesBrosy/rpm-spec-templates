@@ -82,13 +82,19 @@ install -Dm644  -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.di
 %license LICENSE
 %{_bindir}/%{pkgname}
 %{_mandir}/man1/*
-%{_datadir}/bash-completion/completions/%{pkgname}
-%{_datadir}/zsh/site-functions/_%{pkgname}
-%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
 %dir /usr/lib/%{pkgname}
 /usr/lib/%{pkgname}/.disable-self-update
 
+%files bash-completion
+%{bash_completions_dir}/%{name}
+
+%files zsh-completion
+%{zsh_completions_dir}/_%{name}
+
+%files fish-completion
+%{fish_completions_dir}/%{name}.fish
+
 
 %changelog
-* DATE jdx
+* DATE jdx <216188+jdx@users.noreply.github.com>
 - See GitHub for full changelog
