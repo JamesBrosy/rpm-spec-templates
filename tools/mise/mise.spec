@@ -96,5 +96,5 @@ install -Dm644  -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.di
 
 
 %changelog
-* DATE jdx <216188+jdx@users.noreply.github.com>
+* DATE Jeff Dickey <216188+jdx@users.noreply.github.com>
 - See GitHub for full changelog
