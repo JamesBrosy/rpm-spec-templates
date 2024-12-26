@@ -100,5 +100,5 @@ install -Dm644  -T assets/wezterm-nautilus.py        %{buildroot}%{_datadir}/nau
 %{_sysconfdir}/profile.d/*
 
 %changelog
-* DATE Wez Furlong
+* DATE Wez Furlong <wez@wezfurlong.org>
 - See git for full changelog
