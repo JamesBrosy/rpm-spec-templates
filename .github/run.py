@@ -98,7 +98,7 @@ def runner():
             logger.info(f'Build {row.get("package name")} by copr')
             commit_changes(repo, row.get("package name"), old_version, new_version, csv_path)
             logger.info(f'Update version of package {row.get("package name")}')
-            sleep(30)
+            sleep(1)
         except Exception as e:
             logger.error(f'error: {e}')
         finally:
