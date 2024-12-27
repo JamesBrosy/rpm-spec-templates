@@ -4,7 +4,7 @@ name: "build"
 
 # Controls when the workflow will run
 on:
-  # copr build mise every day.
+  # Build packages every day.
   schedule:
     - cron: '0 0 * * *'
 
