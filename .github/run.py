@@ -90,7 +90,7 @@ def runner():
     copr_client = Client.create_from_config_file()
     for _, row in df.iterrows():
         try:
-            old_version = df.loc[df["package name"] == row.get("package name"), "latest version"].to_list()[0]
+            old_version = row.get("latest version")
             new_version = get_latest_version(row, row.get("mode"), gh)
             if new_version == old_version:
                 continue
