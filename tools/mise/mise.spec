@@ -66,7 +66,11 @@ cargo build --offline --release --frozen
 ./target/release/%{pkgname} completion zsh > target/_%{pkgname}
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
 ./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
-touch empty_file
+touch target/empty_file
+cat << 'EOF' > target/%{pkgname}.sh
+# Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
+eval "$(mise activate $(ps -p $$ -o comm=))"
+EOF
 
 
 %install
@@ -75,7 +79,8 @@ install -Dm644  -T man/man1/%{pkgname}.1     %{buildroot}%{_mandir}/man1/%{pkgna
 install -Dm644  -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-functions/_%{pkgname}
 install -Dm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
 install -Dm644  -T target/%{pkgname}.fish    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
-install -Dm644  -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
+install -Dm644  -T target/empty_file         %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
+install -Dm644  -T target/%{pkgname}.sh      %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}.sh
 
 
 %files
@@ -84,6 +89,8 @@ install -Dm644  -T empty_file                %{buildroot}/usr/lib/%{pkgname}/.di
 %{_mandir}/man1/*
 %dir /usr/lib/%{pkgname}
 /usr/lib/%{pkgname}/.disable-self-update
+%dir %{_sysconfdir}/profile.d
+%{_sysconfdir}/profile.d/*
 
 %files bash-completion
 %{_datadir}/bash-completion/*
