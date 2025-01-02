@@ -33,6 +33,31 @@ BuildRequires: git, curl, tar
 %description
 The universal proxy platform.
 
+%package        bash-completion
+Summary:        Bash completion for %{name}
+Requires:       %{name} = %{version}-%{release}
+Requires:       bash-completion
+Supplements:    (%{name} and bash-completion)
+
+%description    bash-completion
+Bash command line completion support for %{name}.
+
+%package        zsh-completion
+Summary:        Zsh completion for %{name}
+Requires:       %{name} = %{version}-%{release}
+Requires:       zsh
+Supplements:    (%{name} and zsh)
+
+%description    zsh-completion
+Zsh command line completion support for %{name}.
+
+%package        fish-completion
+Summary:        Fish completion for %{name}
+Requires:       fish
+Supplements:    (%{name} and fish)
+
+%description fish-completion
+Fish command line completion support for %{name}.
 
 %prep
 %autosetup
@@ -114,13 +139,19 @@ install -dm755 %{buildroot}%{_datadir}/%{name}
 /usr/lib/sysusers.d/%{name}.conf
 %dir %{_datadir}/polkit-1
 %{_datadir}/polkit-1/rules.d/sing-box.rules
+%dir %{_datadir}/%{name}
+
+%files fish-completion
 %dir %{_datadir}/fish
 %{_datadir}/fish/*
+
+%files zsh-completion
 %dir %{_datadir}/zsh
 %{_datadir}/zsh/*
+
+%files bash-completion
 %dir %{_datadir}/bash-completion
 %{_datadir}/bash-completion/*
-%dir %{_datadir}/%{name}
 
 
 %changelog
