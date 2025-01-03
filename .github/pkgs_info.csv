@@ -2,7 +2,7 @@ project name,package name,auther,latest version,mode,branch
 wps-office-fix,wps-office-fix,JamesBrosy,v1.0.2,release,main
 tools,mise,jdx,v2025.1.0,release,main
 tools,zellij,zellij-org,v0.41.2,release,main
-tools,wezterm,wez,6f375e29,commit,main
+tools,wezterm,wez,d8f4cb35,commit,main
 sing-box,sing-box,SagerNet,v1.10.5,release,main
 sing-box,sing-geoip,SagerNet,20241212,release,main
 sing-box,sing-geosite,SagerNet,20241221105938,release,main
