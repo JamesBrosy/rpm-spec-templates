@@ -43,8 +43,12 @@ WPS Office freetype library
 %build
 
 %install
-for font in fonts/*.ttf; do
-  install -Dm644 "$font" -t %{buildroot}%{_datadir}/fonts/wps-office
+for font in fonts/*; do
+  if [ -d "$font" ]; then
+    install -Dm644 "$font"/* -t %{buildroot}%{_datadir}/fonts/wps-office
+  else
+    install -Dm644 "$font" -t %{buildroot}%{_datadir}/fonts/wps-office
+  fi
 done
 
 install -Dm755 libfreetype/%{_arch}/libfreetype* -t %{buildroot}/opt/kingsoft/wps-office/office6
