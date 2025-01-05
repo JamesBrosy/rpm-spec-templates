@@ -21,11 +21,7 @@ Requires:       bash >= 3.2
 Recommends:     bind-utils, catimg, coreutils, gawk, grep, pciutils
 
 %description
-Neofetch displays information about your system next to an
-image, your OS logo, or any ASCII file of your choice. The main
-purpose of Neofetch is to be used in screenshots to show other
-users what OS/distribution you're running, what theme/icons
-you're using and more.
+Neofetch displays information about your system next to an image, your OS logo, or any ASCII file of your choice. The main purpose of Neofetch is to be used in screenshots to show other users what OS/distribution you're running, what theme/icons you're using and more.
 
 
 %prep
