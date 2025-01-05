@@ -61,7 +61,7 @@ cd %{buildroot}/opt/kingsoft/wps-office/office6 && ln -s libfreetype.so.6.18.3 l
 %files missing-fonts
 %license LICENSE
 %dir %{_datadir}/fonts/wps-office
-%{_datadir}/fonts/wps-office/*.ttf
+%{_datadir}/fonts/wps-office/*
 
 %files libfreetype
 %license LICENSE
