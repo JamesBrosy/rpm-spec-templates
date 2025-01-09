@@ -1,6 +1,6 @@
 project name,package name,auther,latest version,mode,branch
 wps-office-fix,wps-office-fix,JamesBrosy,v1.0.3,release,main
-tools,mise,jdx,v2025.1.1,release,main
+tools,mise,jdx,v2025.1.2,release,main
 tools,zellij,zellij-org,v0.41.2,release,main
 tools,wezterm,wez,8e9cf912,commit,main
 sing-box,sing-box,SagerNet,v1.10.6,release,main
