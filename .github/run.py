@@ -25,7 +25,7 @@ logger = getLogger(__name__)
 def get_latest_version(row: Series, mode: str, github: Github) -> str:
     if mode == "commit":
         return github.get_repo(
-            f'{row.get("auther")}/{row.get("package name")}').get_branch(row.get("branch")).commit.sha[0:8]
+            f'{row.get("auther")}/{row.get("package name")}').get_branch(row.get("branch")).commit.sha[0:7]
     elif mode == "release":
         return github.get_repo(f'{row.get("auther")}/{row.get("package name")}').get_latest_release().tag_name
     else:
