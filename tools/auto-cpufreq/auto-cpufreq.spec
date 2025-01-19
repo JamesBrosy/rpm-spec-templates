@@ -21,6 +21,7 @@ Patch3:         003-fix-auto_cpufreq-service.patch
 Patch4:         004-fix-path-in-core.patch
 
 BuildArch:      noarch
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3dist(pip)
 BuildRequires:	python3dist(poetry-dynamic-versioning)
 BuildRequires:  python3dist(poetry-core)
