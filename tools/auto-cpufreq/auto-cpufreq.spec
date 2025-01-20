@@ -28,7 +28,7 @@ BuildRequires:  python3dist(poetry-core)
 BuildRequires:  git
 Requires:	python3
 Requires:	dmidecode
-Requires:	python3-inotify, python3-distro, python3-psutil, python3-click, python3-gobject
+Requires:	python3-inotify, python3-distro, python3-psutil, python3-click, python3-gobject, python3-requests
 Requires:	cairo, gobject-introspection, cairo-gobject, gtk3
 
 %description
