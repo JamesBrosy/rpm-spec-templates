@@ -1,5 +1,5 @@
 diff --git a/auto_cpufreq/core.py b/auto_cpufreq/core.py
-index f03e7de..431444e 100755
+index f03e7de..23ad02c 100755
 --- a/auto_cpufreq/core.py
 +++ b/auto_cpufreq/core.py
 @@ -23,14 +23,14 @@ filterwarnings("ignore")
@@ -107,7 +107,7 @@ index f03e7de..431444e 100755
 +    os.remove("/usr/bin/auto-cpufreq-remove")
 +
 +    if os.path.exists('/usr/bin/auto-cpufreq-install'):
-+        os.remove('/usr/bin/auto-cpufreqctl-install')
++        os.remove('/usr/bin/auto-cpufreq-install')
  
      # delete override pickle if it exists
      if os.path.exists(governor_override_state):  os.remove(governor_override_state)
