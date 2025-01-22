@@ -15,6 +15,9 @@ Summary:        Automatic CPU speed & power optimizer for Linux
 License:        LGPL-3.0-or-later
 URL:            https://github.com/AdnanHodzic/%{name}
 Source0:        %{name}-%{version}.tar.gz
+Source1:        auto-cpufreq
+Source2:        _auto-cpufreq
+Source3:        auto-cpufreq.fish
 Patch1:         001-fix-icon-n-style-locations.patch
 Patch2:         002-fix-other-icon-path.patch
 Patch3:         003-fix-auto_cpufreq-service.patch
@@ -67,10 +70,6 @@ Fish command line completion support for %{name}.
 
 %build
 %pyproject_wheel
-install -d completions
-echo 'eval "$(_AUTO_CPUFREQ_COMPLETE=bash_source auto-cpufreq)"' >> completions/%{name}
-echo 'eval "$(_AUTO_CPUFREQ_COMPLETE=zsh_source auto-cpufreq)"' >> completions/_%{name}
-echo 'eval "$(_AUTO_CPUFREQ_COMPLETE=fish_source auto-cpufreq)"' >> completions/%{name}.fish
 
 
 %install
@@ -85,9 +84,9 @@ install -Dm755 scripts/auto-cpufreq-install.sh  -t %{buildroot}%{_datadir}/%{nam
 install -Dm755 scripts/auto-cpufreq-remove.sh   -t %{buildroot}%{_datadir}/%{name}/scripts
 install -Dm644 scripts/style.css                -t %{buildroot}%{_datadir}/%{name}/scripts
 install -Dm644 images/icon.png                  -t %{buildroot}%{_datadir}/%{name}/images
-install -Dm644 completions/%{name}              -t %{buildroot}%{_datadir}/bash-completion/completions
-install -Dm644 completions/_%{name}             -t %{buildroot}%{_datadir}/zsh/site-functions
-install -Dm644 completions/%{name}.fish         -t %{buildroot}%{_datadir}/fish/vendor_completions.d
+install -Dm644 %{SOURCE1}                       -t %{buildroot}%{_datadir}/bash-completion/completions
+install -Dm644 %{SOURCE2}                       -t %{buildroot}%{_datadir}/zsh/site-functions
+install -Dm644 %{SOURCE3}                       -t %{buildroot}%{_datadir}/fish/vendor_completions.d
 
 %post
 if [ "$1" -eq 1 ]; then
