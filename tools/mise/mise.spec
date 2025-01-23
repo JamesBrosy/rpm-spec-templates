@@ -66,12 +66,14 @@ cargo build --offline --release --frozen
 ./target/release/%{pkgname} completion zsh > target/_%{pkgname}
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
 ./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
-sed -i '1i if [ "$MISE_FISH_AUTO_ACTIVATE" != "0" ]\n  mise activate fish | source\nend\n' %{pkgname}.fish
+sed -i '1i eval "$(mise activate bash)"' target/%{pkgname}
+sed -i '2i eval "$(mise activate zsh)"'  target/_%{pkgname}
+sed -i '1i if [ "$MISE_FISH_AUTO_ACTIVATE" != "0" ]\n  mise activate fish | source\nend\n' target/%{pkgname}.fish
 touch target/empty_file
-cat << 'EOF' > target/%{pkgname}.sh
-# Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
-eval "$(mise activate $(ps -p $$ -o comm=))"
-EOF
+#cat << 'EOF' > target/%{pkgname}.sh
+## Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
+#eval "$(mise activate $(ps -p $$ -o comm=))"
+#EOF
 
 
 %install
