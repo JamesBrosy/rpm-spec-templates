@@ -91,7 +91,6 @@ install -Dm644  -T target/empty_file         %{buildroot}/usr/lib/%{pkgname}/.di
 %{_mandir}/man1/*
 %dir /usr/lib/%{pkgname}
 /usr/lib/%{pkgname}/.disable-self-update
-%dir %{_sysconfdir}/profile.d
 
 %files bash-completion
 %{_datadir}/bash-completion/*
