@@ -19,7 +19,7 @@ License:        MIT
 URL:            https://github.com/jdx/%{name}
 Source0:        %{name}-%{version}.tar.gz
 
-BuildRequires:  gcc
+BuildRequires:  gcc, curl
 
 
 %description
