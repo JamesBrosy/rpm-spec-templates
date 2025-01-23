@@ -61,9 +61,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 # build release
 cargo build --release
-%{name} g completion bash %{name} --usage-cmd "usage --usage-spec" > target/%{name}
-%{name} g completion zsh  %{name} --usage-cmd "usage --usage-spec" > target/_%{name}
-%{name} g completion fish %{name} --usage-cmd "usage --usage-spec" > target/%{name}.fish
+./target/release/%{name} g completion bash %{name} --usage-cmd "usage --usage-spec" > target/%{name}
+./target/release/%{name} g completion zsh  %{name} --usage-cmd "usage --usage-spec" > target/_%{name}
+./target/release/%{name} g completion fish %{name} --usage-cmd "usage --usage-spec" > target/%{name}.fish
 
 
 %install
