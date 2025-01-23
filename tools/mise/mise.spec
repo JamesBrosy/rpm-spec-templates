@@ -29,7 +29,7 @@ The front-end to your dev env
 %package        bash-completion
 Summary:        Bash completion for %{name}
 Requires:       %{name} = %{version}-%{release}
-Requires:       bash-completion
+Requires:       bash-completion, usage
 Supplements:    (%{name} and bash-completion)
 
 %description    bash-completion
@@ -38,7 +38,7 @@ Bash command line completion support for %{name}.
 %package        zsh-completion
 Summary:        Zsh completion for %{name}
 Requires:       %{name} = %{version}-%{release}
-Requires:       zsh
+Requires:       zsh, usage
 Supplements:    (%{name} and zsh)
 
 %description    zsh-completion
@@ -46,7 +46,8 @@ Zsh command line completion support for %{name}.
 
 %package        fish-completion
 Summary:        Fish completion for %{name}
-Requires:       fish
+Requires:       %{name} = %{version}-%{release}
+Requires:       fish, usage
 Supplements:    (%{name} and fish)
 
 %description fish-completion
