@@ -58,6 +58,7 @@ Zsh command line completion support for %{name}.
 
 %package        fish-completion
 Summary:        Fish completion for %{name}
+Requires:       %{name} = %{version}-%{release}
 Requires:       fish
 Supplements:    (%{name} and fish)
 
