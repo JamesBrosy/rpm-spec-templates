@@ -67,14 +67,18 @@ cargo build --offline --release --frozen
 ./target/release/%{pkgname} completion zsh > target/_%{pkgname}
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
 ./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
-sed -i '1i eval "$(mise activate bash)"' target/%{pkgname}
-sed -i '2i eval "$(mise activate zsh)"'  target/_%{pkgname}
-sed -i '1i if [ "$MISE_FISH_AUTO_ACTIVATE" != "0" ]\n  mise activate fish | source\nend\n' target/%{pkgname}.fish
 touch target/empty_file
-#cat << 'EOF' > target/%{pkgname}.sh
-## Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
-#eval "$(mise activate $(ps -p $$ -o comm=))"
-#EOF
+
+cat << 'EOF' > target/%{pkgname}.sh
+# Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
+[ "$SHELL" == "/bin/bash" ] && eval "$(mise activate bash)"
+[ "$ZSH_NAME" == "zsh" ] && eval "$(mise activate zsh)"
+EOF
+
+cat << 'EOF' > target/%{pkgname}_cf.fish
+# Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
+eval "$(mise activate fish)"
+EOF
 
 
 %install
@@ -84,6 +88,8 @@ install -Dm644  -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-fu
 install -Dm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
 install -Dm644  -T target/%{pkgname}.fish    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
 install -Dm644  -T target/empty_file         %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
+install -Dm644  -T target/%{pkgname}.sh      %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}.sh
+install -Dm644  -T target/%{pkgname}_cf.fish %{buildroot}%{_sysconfdir}/fish/conf.d/%{pkgname}.fish
 
 
 %files
@@ -92,6 +98,10 @@ install -Dm644  -T target/empty_file         %{buildroot}/usr/lib/%{pkgname}/.di
 %{_mandir}/man1/*
 %dir /usr/lib/%{pkgname}
 /usr/lib/%{pkgname}/.disable-self-update
+%dir %{_sysconfdir}/profile.d
+%{_sysconfdir}/profile.d/*
+%dir %{_sysconfdir}/fish
+%{_sysconfdir}/fish/*
 
 %files bash-completion
 %{_datadir}/bash-completion/*
