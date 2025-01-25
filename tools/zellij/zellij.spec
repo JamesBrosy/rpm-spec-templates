@@ -37,27 +37,33 @@ language that compiles to WebAssembly.
 
 %package bash-completion
 Summary:        Bash completion for %{name}
+Group:          System/Shells
 Requires:       %{name} = %{version}-%{release}
 Requires:       bash-completion
 Supplements:    (%{name} and bash-completion)
+BuildArch:      noarch
 
 %description bash-completion
 Bash command line completion support for %{name}.
 
 %package zsh-completion
 Summary:        Zsh completion for %{name}
+Group:          System/Shells
 Requires:       %{name} = %{version}-%{release}
 Requires:       zsh
 Supplements:    (%{name} and zsh)
+BuildArch:      noarch
 
 %description zsh-completion
 Zsh command line completion support for %{name}.
 
 %package fish-completion
 Summary:        Fish completion for %{name}
+Group:          System/Shells
 Requires:       %{name} = %{version}-%{release}
 Requires:       fish
 Supplements:    (%{name} and fish)
+BuildArch:      noarch
 
 %description fish-completion
 Fish command line completion support for %{name}.
