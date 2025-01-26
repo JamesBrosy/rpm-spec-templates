@@ -120,7 +120,7 @@ install -Dm 644 assets/%{name}.desktop             %{buildroot}%{_datadir}/appli
 %if ! 0%{?rhel}
 for r in 16 24 32 48 64 128 256; do
     install -dm755 "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps"
-    ./magick assets/logo.png -resize "${r}x${r}" "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps/yazi.png"
+    magick assets/logo.png -resize "${r}x${r}" "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps/yazi.png"
 done
 %endif
 
