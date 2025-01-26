@@ -21,12 +21,15 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         001-system-lua.patch
 Requires:       file, ya
 
-BuildRequires:  ImageMagick, gcc, curl
 %if 0%{?suse_version}
 BuildRequires:  lua54-devel
 %else
 BuildRequires:  lua-devel
 %endif
+%if 0%{?rhel}
+BuildRequires:  epel-release
+%endif
+BuildRequires:  ImageMagick, gcc, curl
 
 Suggests:       ffmpeg
 Suggests:       p7zip
@@ -127,7 +130,7 @@ cargo test --all
 
 
 %files
-%license LICENSE, LICENSE-ICONS
+%license LICENSE LICENSE-ICONS
 %doc README.md
 %{_bindir}/%{name}
 %{_bindir}/ya
