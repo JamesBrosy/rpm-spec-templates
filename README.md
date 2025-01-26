@@ -12,3 +12,4 @@
 - [neofetch](tools/neofetch)
 - [neohtop](tools/neohtop)
 - [auto-cpufreq](tools/auto-cpufreq)
+- [yazi](tools/yazi)
