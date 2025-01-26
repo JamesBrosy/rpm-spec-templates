@@ -27,6 +27,9 @@ BuildRequires:  lua54-devel
 BuildRequires:  lua-devel
 %endif
 BuildRequires:  gcc, curl
+%if ! 0%{?rhel}
+BuildRequires:  ImageMagick
+%endif
 
 Suggests:       ffmpeg
 Suggests:       p7zip
@@ -114,13 +117,12 @@ install -Dm 644 yazi-cli/completions/ya.fish       %{buildroot}%{_datadir}/fish/
 install -Dm 644 yazi-cli/completions/_ya           %{buildroot}%{_datadir}/zsh/site-functions/_ya
 install -Dm 644 assets/%{name}.desktop             %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-# Download ImageMagick
-curl -L -o magick https://github.com/ImageMagick/ImageMagick/releases/download/7.1.1-43/ImageMagick-a2d96f4-gcc-x86_64.AppImage
-chmod +x magick
+%if ! 0%{?rhel}
 for r in 16 24 32 48 64 128 256; do
     install -dm755 "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps"
     ./magick assets/logo.png -resize "${r}x${r}" "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps/yazi.png"
 done
+%endif
 
 %check
 export YAZI_GEN_COMPLETIONS=true
@@ -134,8 +136,10 @@ cargo test --all
 %doc README.md
 %{_bindir}/%{name}
 %{_bindir}/ya
+%if ! 0%{?rhel}
 %{_datadir}/icons/*
 %{_datadir}/applications/*
+%endif
 
 %files bash-completion
 %{_datadir}/bash-completion
