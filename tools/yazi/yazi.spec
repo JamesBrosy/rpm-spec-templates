@@ -26,11 +26,7 @@ BuildRequires:  lua54-devel
 %else
 BuildRequires:  lua-devel
 %endif
-%if 0%{?rhel}
-BuildRequires:  GraphicsMagick
-%else
 BuildRequires:  ImageMagick
-%endif
 BuildRequires:  gcc, curl
 
 Suggests:       ffmpeg
@@ -119,17 +115,10 @@ install -Dm 644 yazi-cli/completions/ya.fish       %{buildroot}%{_datadir}/fish/
 install -Dm 644 yazi-cli/completions/_ya           %{buildroot}%{_datadir}/zsh/site-functions/_ya
 install -Dm 644 assets/%{name}.desktop             %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%if 0%{?rhel}
 for r in 16 24 32 48 64 128 256; do
     install -dm755 "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps"
     magick assets/logo.png -resize "${r}x${r}" "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps/yazi.png"
 done
-%else
-for r in 16 24 32 48 64 128 256; do
-    install -dm755 "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps"
-    gm convert assets/logo.png -resize "${r}x${r}" "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps/yazi.png"
-done
-%endif
 
 %check
 export YAZI_GEN_COMPLETIONS=true
