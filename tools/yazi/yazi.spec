@@ -24,7 +24,7 @@ Requires:       file
 %if 0%{?suse_version}
 BuildRequires:  lua54-devel
 %else
-BuildRequires:  lua-devel
+BuildRequires:  lua-devel >= 5.4
 %endif
 BuildRequires:  gcc, curl
 %if ! 0%{?rhel}
