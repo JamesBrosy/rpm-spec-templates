@@ -21,7 +21,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         001-system-lua.patch
 Requires:       file, ya
 
-BuildRequires:  ImageMagick
+BuildRequires:  ImageMagick, gcc
 %if 0%{?suse_version}
 BuildRequires:  lua54-devel
 %else
