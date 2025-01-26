@@ -127,7 +127,7 @@ cargo test --all
 
 
 %files
-%license LICENSE
+%license LICENSE, LICENSE-ICONS
 %doc README.md
 %{_bindir}/%{name}
 %{_bindir}/ya
