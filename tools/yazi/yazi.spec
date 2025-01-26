@@ -19,7 +19,7 @@ Group:          Productivity/Text/Utilities
 URL:            https://github.com/sxyazi/yazi
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         001-system-lua.patch
-Requires:       file, ya
+Requires:       file
 
 %if 0%{?suse_version}
 BuildRequires:  lua54-devel
