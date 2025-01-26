@@ -115,9 +115,9 @@ install -Dm 644 yazi-boot/completions/_%{name}     %{buildroot}%{_datadir}/zsh/s
 install -Dm 644 yazi-cli/completions/ya.bash       %{buildroot}%{_datadir}/bash-completion/completions/ya
 install -Dm 644 yazi-cli/completions/ya.fish       %{buildroot}%{_datadir}/fish/vendor_completions.d/ya.fish
 install -Dm 644 yazi-cli/completions/_ya           %{buildroot}%{_datadir}/zsh/site-functions/_ya
-install -Dm 644 assets/%{name}.desktop             %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %if ! 0%{?rhel}
+install -Dm 644 assets/%{name}.desktop             %{buildroot}%{_datadir}/applications/%{name}.desktop
 for r in 16 24 32 48 64 128 256; do
     install -dm755 "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps"
     magick assets/logo.png -resize "${r}x${r}" "%{buildroot}%{_datadir}/icons/hicolor/${r}x${r}/apps/yazi.png"
