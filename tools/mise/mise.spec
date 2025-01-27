@@ -84,7 +84,7 @@ EOF
 cat << 'EOF' > target/%{pkgname}_cf.fish
 # Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
 if [ "$MISE_FISH_AUTO_ACTIVATE" != "0" ]
-  eval "$(mise activate fish)"
+  mise activate fish | source
 end
 EOF
 
