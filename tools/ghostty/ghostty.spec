@@ -24,11 +24,6 @@ BuildRequires:  pkgconfig
 BuildRequires:  zig == 0.13.0
 BuildRequires:  zstd
 BuildRequires:  pkgconfig(bzip2)
-%if 0%{?suse_version}
-BuildRequires:  python-nautilus-common-files
-%else
-BuildRequires:  nautilus-python
-%endif
 BuildRequires:  python3-gobject
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(freetype2)
