@@ -141,11 +141,18 @@ This holds the terminfo files for ghostty.
 %build
 # Run `./nix/build-support/fetch-zig-cache.sh` locally to
 # prep deps for offline install
-zig build %{common_build_flags}
+ZIG_GLOBAL_CACHE_DIR=/tmp/offline-cache ./nix/build-support/fetch-zig-cache.sh
+zig build \
+    --summary all \
+    --prefix "%{buildroot}%{_prefix}" \
+    --system "/tmp/offline-cache/p" \
+    -Dversion-string=%{version}-%{release} \
+    -Doptimize=ReleaseFast \
+    -Dcpu=baseline \
+    -Dpie=true \
+    -Demit-docs
 
 %install
-export DESTDIR=%{buildroot}
-zig build %{common_build_flags} --prefix %{_prefix}
 %if %{without standalone_terminfo}
 rm -rv %{buildroot}%{_datadir}/terminfo/
 %endif
