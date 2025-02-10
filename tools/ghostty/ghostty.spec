@@ -143,6 +143,8 @@ zig build %{common_build_flags} --prefix %{_prefix}
 rm -rv %{buildroot}%{_datadir}/terminfo/
 %endif
 
+mv %{buildroot}%{_datadir}/nautilus-python/extensions/{com.mitchellh.ghostty,ghostty}.py
+
 %files
 %license LICENSE
 %{_bindir}/%{name}
@@ -182,7 +184,7 @@ rm -rv %{buildroot}%{_datadir}/terminfo/
 %{_datadir}/kio/servicemenus/com.mitchellh.ghostty.desktop
 
 %files -n nautilus-extension-ghostty
-%{_datadir}/nautilus-python/extensions/com.mitchellh.ghostty.py
+%{_datadir}/nautilus-python/extensions/ghostty.py
 
 %files neovim
 %{_datadir}/nvim/site/ftdetect/ghostty.vim
