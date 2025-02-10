@@ -13,7 +13,7 @@
 
 Name:           ghostty
 Version:        VERSION
-Release:        0
+Release:        1%{?dist}
 Summary:        Cross-platform terminal emulator
 License:        MIT
 URL:            https://github.com/ghostty-org/ghostty
@@ -110,10 +110,6 @@ BuildArch:      noarch
 %description vim
 Optional files for syntax highlighting for %{name} data files in vim.
 
-%description
-Ghostty is a fast, feature-rich, and cross-platform terminal
-emulator that uses platform-native UI and GPU acceleration.
-
 %package -n nautilus-extension-ghostty
 Summary:        Nautilus extension for ghostty
 Requires:       %{name} = %{version}
@@ -156,8 +152,8 @@ rm -rv %{buildroot}%{_datadir}/terminfo/
 %license LICENSE
 %{_bindir}/%{name}
 %{_datadir}/applications/com.mitchellh.ghostty.desktop
-%{_mandir}/man1/ghostty.1%{?ext_man}
-%{_mandir}/man5/ghostty.5%{?ext_man}
+%{_mandir}/man1/*
+%{_mandir}/man5/*
 %{_datadir}/icons/hicolor/128x128/apps/com.mitchellh.ghostty.png
 %{_datadir}/icons/hicolor/128x128@2/apps/com.mitchellh.ghostty.png
 %{_datadir}/icons/hicolor/16x16/apps/com.mitchellh.ghostty.png
