@@ -33,6 +33,7 @@ BuildRequires:  python3-gobject
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(oniguruma)
