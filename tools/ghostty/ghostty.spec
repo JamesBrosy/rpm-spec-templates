@@ -21,7 +21,7 @@ Source0:        https://release.files.ghostty.org/%{version}/ghostty-%{version}.
 BuildRequires:  gobject-introspection
 BuildRequires:  pandoc
 BuildRequires:  pkgconfig
-BuildRequires:  zig = 0.13.0
+BuildRequires:  zig == 0.13.0
 BuildRequires:  zstd
 BuildRequires:  pkgconfig(bzip2)
 %if 0%{?suse_version}
