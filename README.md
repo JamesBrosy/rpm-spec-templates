@@ -13,3 +13,4 @@
 - [neohtop](tools/neohtop)
 - [auto-cpufreq](tools/auto-cpufreq)
 - [yazi](tools/yazi)
+- [ghostty](tools/ghostty)
