@@ -22,12 +22,15 @@ basicConfig(level=INFO)
 logger = getLogger(__name__)
 
 
-def get_latest_version(row: Series, mode: str, github: Github) -> str:
+def get_latest_version(row: Series, github: Github) -> str:
+    mode = row.get("mode")
     if mode == "commit":
         return github.get_repo(
             f'{row.get("auther")}/{row.get("package name")}').get_branch(row.get("branch")).commit.sha[0:7]
     elif mode == "release":
         return github.get_repo(f'{row.get("auther")}/{row.get("package name")}').get_latest_release().tag_name
+    elif mode == "tag":
+        return github.get_repo(f'{row.get("auther")}/{row.get("package name")}').get_tags()[0].name
     else:
         return ''
 
@@ -91,7 +94,7 @@ def runner():
     for _, row in df.iterrows():
         try:
             old_version = row.get("latest version")
-            new_version = get_latest_version(row, row.get("mode"), gh)
+            new_version = get_latest_version(row, gh)
             if new_version == old_version:
                 continue
             copr_builder(copr_client, owner, row.get("project name"), row.get("package name"))
