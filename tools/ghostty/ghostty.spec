@@ -21,7 +21,7 @@ Source0:        https://release.files.ghostty.org/%{version}/ghostty-%{version}.
 BuildRequires:  gobject-introspection
 BuildRequires:  pandoc
 BuildRequires:  pkgconfig
-BuildRequires:  zig == 0.13.0
+BuildRequires:  zig
 BuildRequires:  zstd
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  python3-gobject
@@ -109,7 +109,11 @@ Optional files for syntax highlighting for %{name} data files in vim.
 Summary:        Nautilus extension for ghostty
 Requires:       %{name} = %{version}
 Requires:       nautilus
+%if 0%{?suse_version}
 Requires:       python-nautilus-common-files
+%else
+Requires:       nautilus-python
+%endif
 Requires:       python3-gobject
 Supplements:    (%{name} and nautilus)
 BuildArch:      noarch
