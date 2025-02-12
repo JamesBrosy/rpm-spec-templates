@@ -59,6 +59,28 @@ BuildArch:      noarch
 %description fish-completion
 Fish command line completion support for %{name}.
 
+%package        fish-setup-file
+Summary:        Fish setup script for %{name}
+Group:          System/Shells
+Requires:       %{name} = %{version}-%{release}
+Requires:       fish
+Supplements:    (%{name} and fish)
+BuildArch:      noarch
+
+%description    fish-setup-file
+Fish setup script for %{name}
+
+%package        setup-file
+Summary:        Setup script for %{name}
+Group:          System/Shells
+Requires:       %{name} = %{version}-%{release}
+Requires:       bash
+Supplements:    (%{name} and bash)
+BuildArch:      noarch
+
+%description    setup-file
+Setup script for %{name}
+
 %prep
 %autosetup
 
@@ -102,10 +124,6 @@ install -Dm644  -T target/%{pkgname}_cf.fish %{buildroot}%{_sysconfdir}/fish/con
 %license LICENSE
 %{_bindir}/%{pkgname}
 %{_mandir}/man1/*
-%dir %{_sysconfdir}/profile.d
-%{_sysconfdir}/profile.d/*
-%dir %{_sysconfdir}/fish
-%{_sysconfdir}/fish/*
 
 %files bash-completion
 %{_datadir}/bash-completion/*
@@ -116,6 +134,11 @@ install -Dm644  -T target/%{pkgname}_cf.fish %{buildroot}%{_sysconfdir}/fish/con
 %files fish-completion
 %{_datadir}/fish/*
 
+%files fish-setup-file
+%{_sysconfdir}/fish/*
+
+%files setup-file
+%{_sysconfdir}/profile.d/*
 
 %changelog
 * DATE Jeff Dickey <216188+jdx@users.noreply.github.com>
