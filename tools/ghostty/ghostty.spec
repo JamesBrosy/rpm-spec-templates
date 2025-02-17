@@ -135,9 +135,7 @@ This holds the terminfo files for ghostty.
 %autosetup
 
 %build
-# Run `./nix/build-support/fetch-zig-cache.sh` locally to
-# prep deps for offline install
-ZIG_GLOBAL_CACHE_DIR=$(pwd)/vendor/zig ./nix/build-support/fetch-zig-cache.sh
+ZIG_GLOBAL_CACHE_DIR=$(pwd)/vendor/zig
 zig build %{common_build_flags}
 
 %install
