@@ -18,7 +18,7 @@ Summary:        The front-end to your dev env
 
 License:        MIT
 URL:            https://github.com/jdx/%{pkgname}
-Source0:        %{pkgname}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gcc, curl, openssl, openssl-devel, zlib, zlib-devel
 
