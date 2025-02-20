@@ -7,7 +7,7 @@
 # Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
 #
 
-%global common_build_flags --system %{_builddir}/%{name}-%{version}/vendor/zig/p -Doptimize=ReleaseFast -Dcpu=baseline -Dpie=true -Dstrip=false -Dversion-string=%{version} %{?_smp_mflags}
+%global common_build_flags -Doptimize=ReleaseFast -Dcpu=baseline -Dpie=true -Dstrip=false -Dversion-string=%{version} %{?_smp_mflags}
 
 %bcond_without  standalone_terminfo
 
@@ -135,7 +135,6 @@ This holds the terminfo files for ghostty.
 %autosetup
 
 %build
-ZIG_GLOBAL_CACHE_DIR=$(pwd)/vendor/zig
 zig build %{common_build_flags}
 
 %install
@@ -144,8 +143,6 @@ zig build %{common_build_flags} --prefix %{_prefix}
 %if %{without standalone_terminfo}
 rm -rv %{buildroot}%{_datadir}/terminfo/
 %endif
-
-mv %{buildroot}%{_datadir}/nautilus-python/extensions/{com.mitchellh.ghostty,ghostty}.py
 
 %files
 %license LICENSE
