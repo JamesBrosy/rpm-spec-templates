@@ -17,7 +17,7 @@ Summary:        A spec and CLI for defining CLI tools.
 
 License:        MIT
 URL:            https://github.com/jdx/%{name}
-Source0:        %{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc, curl
 
