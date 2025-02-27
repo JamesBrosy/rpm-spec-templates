@@ -75,5 +75,5 @@ git checkout main
 
 
 %changelog
-* DATE SagerNet <contact-sagernet@sekai.icu>
+* DATE nekohasekai <contact-git@sekai.icu>
 - See GitHub for full changelog
