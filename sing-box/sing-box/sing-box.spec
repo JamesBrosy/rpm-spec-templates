@@ -155,5 +155,5 @@ install -dm755 %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
-* DATE SagerNet
+* DATE nekohasekai <contact-git@sekai.icu>
 - See GitHub for full changelog
