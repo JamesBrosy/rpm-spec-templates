@@ -88,13 +88,12 @@ Setup script for %{name}
 # install toolchain
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
-# fetch deps
-cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 # build release
-cargo build --offline --release --frozen
-./target/release/%{pkgname} completion zsh > target/_%{pkgname}
-./target/release/%{pkgname} completion bash > target/%{pkgname}
-./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
+export RUST_TRIPLE="$(rustc -vV | sed -n 's/host: //p')"
+cargo build --profile=serious --target "${RUST_TRIPLE}" --features openssl/vendored
+./target/${RUST_TRIPLE}/serious/%{pkgname} completion zsh  > target/_%{pkgname}
+./target/${RUST_TRIPLE}/serious/%{pkgname} completion bash > target/%{pkgname}
+./target/${RUST_TRIPLE}/serious/%{pkgname} completion fish > target/%{pkgname}.fish
 
 cat << 'EOF' > target/%{pkgname}.sh
 # Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
@@ -111,7 +110,7 @@ EOF
 
 
 %install
-install -Dsm755 -T target/release/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
+install -Dsm755 -T target/${RUST_TRIPLE}/serious/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
 install -Dm644  -T man/man1/%{pkgname}.1     %{buildroot}%{_mandir}/man1/%{pkgname}.1
 install -Dm644  -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-functions/_%{pkgname}
 install -Dm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
