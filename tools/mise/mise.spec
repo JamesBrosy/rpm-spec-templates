@@ -110,7 +110,7 @@ EOF
 
 
 %install
-install -Dsm755 -T target/${RUST_TRIPLE}/serious/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
+install -Dsm755 -T target/%{_arch}-unknown-linux-gnu/serious/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
 install -Dm644  -T man/man1/%{pkgname}.1     %{buildroot}%{_mandir}/man1/%{pkgname}.1
 install -Dm644  -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-functions/_%{pkgname}
 install -Dm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
