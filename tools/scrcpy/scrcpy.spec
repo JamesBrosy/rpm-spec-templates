@@ -10,19 +10,17 @@
 %define _fortify_level 2
 
 %define         pkgname             scrcpy
-%global         forgeurl            https://github.com/Genymobile/%{pkgname}
 Version:        VERSION
 
-%forgemeta -i
 
 Name:           %{pkgname}
 Release:        2%{?dist}
 Summary:        Display and control your Android device
 License:        ASL 2.0
 
-URL:            %{forgeurl}
-Source0:        %{forgesource}
-Source1:        https://github.com/Genymobile/%{pkgname}/releases/download/v%{version}/%{pkgname}-server-v%{version}
+URL:            https://github.com/Genymobile/%{pkgname}
+Source0:        %{url}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+Source1:        %{url}/releases/download/v%{version}/%{pkgname}-server-v%{version}
 
 BuildRequires:  meson gcc
 BuildRequires:  java-devel >= 11
@@ -66,7 +64,7 @@ BuildArch:      noarch
 Zsh command line completion support for %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup
 
 %build
 %meson -Db_lto=true -Dprebuilt_server='%{S:1}'
