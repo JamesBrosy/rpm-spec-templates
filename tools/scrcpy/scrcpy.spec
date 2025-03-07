@@ -1,3 +1,12 @@
+#
+# spec file for package scrcpy
+#
+# Copyright (c) 2024 Jo Carllyle
+#
+
+# Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
+#
+
 %define _fortify_level 2
 
 %define         pkgname             scrcpy
