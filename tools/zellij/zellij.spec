@@ -84,35 +84,38 @@ export RUSTFLAGS="-Copt-level=3 -Cdebuginfo=2 -Ccodegen-units=1 -Cstrip=none -Cf
 # First rebuilt plugins we just deleted
 # Note: RUSTFLAGS break linking with WASM-files, so we don't use the cargo_build-macro here
 pushd default-plugins/compact-bar
-cargo build --offline --release --target=wasm32-wasi
+cargo --offline build --release --target=wasm32-wasip1
 popd
 pushd default-plugins/status-bar
-cargo build --offline --release --target=wasm32-wasi
+cargo --offline build --release --target=wasm32-wasip1
 popd
 pushd default-plugins/tab-bar
-cargo build --offline --release --target=wasm32-wasi
+cargo --offline build --release --target=wasm32-wasip1
 popd
 pushd default-plugins/strider
-cargo build --offline --release --target=wasm32-wasi
+cargo --offline build --release --target=wasm32-wasip1
 popd
 pushd default-plugins/session-manager
-cargo build --offline --release --target=wasm32-wasi
+cargo --offline build --release --target=wasm32-wasip1
 popd
 pushd default-plugins/fixture-plugin-for-tests
-cargo build --offline --release --target=wasm32-wasi
+cargo --offline build --release --target=wasm32-wasip1
 popd
 pushd default-plugins/configuration
-cargo build --offline --release --target=wasm32-wasi
+cargo --offline build --release --target=wasm32-wasip1
 popd
 pushd default-plugins/plugin-manager
-cargo build --offline --release --target=wasm32-wasi
+cargo --offline build --release --target=wasm32-wasip1
+popd
+pushd default-plugins/about
+cargo --offline build --release --target=wasm32-wasip1
 popd
 
 # Move the results to the place they are expected
 mv -v target/wasm32-wasi/release/*.wasm zellij-utils/assets/plugins/
 
 # Build zellij proper
-cargo build --offline --release --features unstable
+cargo --offline build --release --features unstable
 
 for shell in "zsh" "bash" "fish"
 do
