@@ -112,7 +112,7 @@ cargo --offline build --release --target=wasm32-wasip1
 popd
 
 # Move the results to the place they are expected
-mv -v target/wasm32-wasi/release/*.wasm zellij-utils/assets/plugins/
+mv -v target/wasm32-wasip1/release/*.wasm zellij-utils/assets/plugins/
 
 # Build zellij proper
 cargo --offline build --release --features unstable
