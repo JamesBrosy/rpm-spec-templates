@@ -117,12 +117,16 @@ install -Dm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-comple
 install -Dm644  -T target/%{pkgname}.fish    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
 install -Dm644  -T target/%{pkgname}.sh      %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}.sh
 install -Dm644  -T target/%{pkgname}_cf.fish %{buildroot}%{_sysconfdir}/fish/conf.d/%{pkgname}.fish
+install -dm755  %{buildroot}/usr/lib/%{pkgname}
+touch           %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
 
 
 %files
 %license LICENSE
 %{_bindir}/%{pkgname}
 %{_mandir}/man1/*
+%dir /usr/lib/%{pkgname}
+/usr/lib/%{pkgname}/.disable-self-update
 
 %files bash-completion
 %{_datadir}/bash-completion/*
