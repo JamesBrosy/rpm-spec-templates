@@ -26,11 +26,11 @@ def get_latest_version(row: Series, github: Github) -> str:
     mode = row.get("mode")
     if mode == "commit":
         return github.get_repo(
-            f'{row.get("auther")}/{row.get("package name")}').get_branch(row.get("branch")).commit.sha[0:7]
+            f'{row.get("author")}/{row.get("package name")}').get_branch(row.get("branch")).commit.sha[0:7]
     elif mode == "release":
-        return github.get_repo(f'{row.get("auther")}/{row.get("package name")}').get_latest_release().tag_name
+        return github.get_repo(f'{row.get("author")}/{row.get("package name")}').get_latest_release().tag_name
     elif mode == "tag":
-        return github.get_repo(f'{row.get("auther")}/{row.get("package name")}').get_tags()[0].name
+        return github.get_repo(f'{row.get("author")}/{row.get("package name")}').get_tags()[0].name
     else:
         return ''
 
@@ -63,13 +63,13 @@ def copr_builder(copr_client: Client, owner: str, project_name: str, package_nam
 def commit_changes(
         repo: Repository,
         package_name: str,
-        old_version: str,
-        new_version: str,
+        old_content: str,
+        new_content: str,
         csv_path: str) -> None:
     commit_msg = f'Update version of package {package_name}'
     csv_content = repo.get_contents(csv_path)
     content = csv_content.decoded_content.decode('utf-8')
-    updated_content = content.replace(old_version, new_version)
+    updated_content = content.replace(old_content, new_content)
     repo.update_file(
         path=csv_path,
         message=commit_msg,
@@ -93,13 +93,13 @@ def runner():
     copr_client = Client.create_from_config_file()
     for _, row in df.iterrows():
         try:
-            old_version = row.get("latest version")
-            new_version = get_latest_version(row, gh)
-            if new_version == old_version:
+            old_content = f'{row.get("author")},{row.get("latest version")}'
+            new_content = f'{row.get("author")},{get_latest_version(row, gh)}'
+            if new_content == old_content:
                 continue
             copr_builder(copr_client, owner, row.get("project name"), row.get("package name"))
             logger.info(f'Build {row.get("package name")} by copr')
-            commit_changes(repo, row.get("package name"), old_version, new_version, csv_path)
+            commit_changes(repo, row.get("package name"), old_content, new_content, csv_path)
             logger.info(f'Update version of package {row.get("package name")}')
             sleep(1)
         except Exception as e:
