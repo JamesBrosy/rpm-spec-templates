@@ -11,7 +11,6 @@
 %global public_key RWQlAjJC23149WL2sEpT/l0QKy7hMIFhYdQOFy0Z7z7PbneUgvlsnYcV
 %global common_build_flags -Doptimize=ReleaseFast -Dcpu=baseline -Dpie=true -Dstrip=false -Dversion-string=%{version} %{?_smp_mflags}
 
-%bcond_without  standalone_terminfo
 
 Name:           ghostty
 Version:        VERSION
@@ -37,12 +36,7 @@ BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(oniguruma)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  minisign
-%if %{with standalone_terminfo}
-Requires:       terminfo-ghostty = %{version}
-%else
-BuildRequires:  terminfo
-Requires:       terminfo >= %{terminfo_with_ghostty_version}
-%endif
+Requires:       ghostty-terminfo = %{version}
 
 %description
 Ghostty is a fast, feature-rich, and cross-platform terminal
@@ -145,9 +139,6 @@ zig build %{common_build_flags}
 %install
 export DESTDIR=%{buildroot}
 zig build %{common_build_flags} --prefix %{_prefix}
-%if %{without standalone_terminfo}
-rm -rv %{buildroot}%{_datadir}/terminfo/
-%endif
 
 #Don't conflict with ncurses-term on F42 and up
 %if 0%{?fedora} >= 42
@@ -240,13 +231,11 @@ rm -rf %{buildroot}%{_datadir}/terminfo/g/ghostty
 %{_datadir}/vim/vimfiles/syntax/ghostty.vim
 %{_datadir}/vim/vimfiles/compiler/ghostty.vim
 
-%if %{with standalone_terminfo}
 %files terminfo
 %if 0%{?fedora} < 42
 %{_datadir}/terminfo/g/ghostty
 %endif
 %{_datadir}/terminfo/x/xterm-ghostty
-%endif
 
 %changelog
 * DATE Mitchell Hashimoto <m@mitchellh.com>
