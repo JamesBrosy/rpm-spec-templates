@@ -7,6 +7,8 @@
 # Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
 #
 
+# Signing key from https://github.com/ghostty-org/ghostty/blob/main/PACKAGING.md
+%global public_key RWQlAjJC23149WL2sEpT/l0QKy7hMIFhYdQOFy0Z7z7PbneUgvlsnYcV
 %global common_build_flags -Doptimize=ReleaseFast -Dcpu=baseline -Dpie=true -Dstrip=false -Dversion-string=%{version} %{?_smp_mflags}
 
 %bcond_without  standalone_terminfo
@@ -18,6 +20,7 @@ Summary:        Cross-platform terminal emulator
 License:        MIT
 URL:            https://github.com/ghostty-org/ghostty
 Source0:        https://release.files.ghostty.org/%{version}/ghostty-%{version}.tar.gz
+Source1:        https://release.files.ghostty.org/%{version}/ghostty-%{version}.tar.gz.minisig
 BuildRequires:  gobject-introspection
 BuildRequires:  pandoc
 BuildRequires:  pkgconfig
@@ -132,6 +135,7 @@ emulator that uses platform-native UI and GPU acceleration.
 This holds the terminfo files for ghostty.
 
 %prep
+/usr/bin/minisign -V -m %{SOURCE0} -x %{SOURCE1} -P %{public_key}
 %autosetup
 
 %build
@@ -142,6 +146,11 @@ export DESTDIR=%{buildroot}
 zig build %{common_build_flags} --prefix %{_prefix}
 %if %{without standalone_terminfo}
 rm -rv %{buildroot}%{_datadir}/terminfo/
+%endif
+
+#Don't conflict with ncurses-term on F42 and up
+%if 0%{?fedora} >= 42
+rm -rf %{buildroot}%{_datadir}/terminfo/g/ghostty
 %endif
 
 %files
@@ -231,8 +240,10 @@ rm -rv %{buildroot}%{_datadir}/terminfo/
 %{_datadir}/vim/vimfiles/compiler/ghostty.vim
 
 %if %{with standalone_terminfo}
-%files -n terminfo-ghostty
+%files terminfo
+%if 0%{?fedora} < 42
 %{_datadir}/terminfo/g/ghostty
+%endif
 %{_datadir}/terminfo/x/xterm-ghostty
 %endif
 
