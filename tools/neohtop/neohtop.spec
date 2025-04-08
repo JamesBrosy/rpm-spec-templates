@@ -25,10 +25,11 @@ Source1:        NeoHtop.desktop
 BuildRequires:  cargo
 BuildRequires:  gtk3-devel
 BuildRequires:  glib2-devel
+BuildRequires:  npm
 %if 0%{?suse_version}
-BuildRequires:  npm, libopenssl-devel, webkit2gtk3-devel
+BuildRequires:  libopenssl-devel, webkit2gtk3-devel
 %else
-BuildRequires:  nodejs, openssl-devel, webkit2gtk4.1-devel >= 2.40
+BuildRequires:  openssl-devel, webkit2gtk4.1-devel >= 2.40
 %endif
 
 %if 0%{?suse_version}
