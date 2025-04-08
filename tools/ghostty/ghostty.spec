@@ -36,6 +36,7 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(oniguruma)
 BuildRequires:  pkgconfig(zlib)
+BuildRequires:  minisign
 %if %{with standalone_terminfo}
 Requires:       terminfo-ghostty = %{version}
 %else
