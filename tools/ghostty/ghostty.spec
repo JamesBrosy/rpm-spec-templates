@@ -108,7 +108,7 @@ BuildArch:      noarch
 %description vim
 Optional files for syntax highlighting for %{name} data files in vim.
 
-%package -n nautilus-extension-ghostty
+%package        nautilus-extension
 Summary:        Nautilus extension for ghostty
 Requires:       %{name} = %{version}
 Requires:       nautilus
@@ -121,14 +121,14 @@ Requires:       python3-gobject
 Supplements:    (%{name} and nautilus)
 BuildArch:      noarch
 
-%description -n nautilus-extension-ghostty
+%description    nautilus-extension
 Nautilus extension for ghostty.
 
-%package -n terminfo-ghostty
+%package        terminfo
 Summary:        Terminfo files for ghostty
 BuildArch:      noarch
 
-%description -n terminfo-ghostty
+%description    terminfo
 Ghostty is a fast, feature-rich, and cross-platform terminal
 emulator that uses platform-native UI and GPU acceleration.
 
@@ -191,7 +191,7 @@ rm -rf %{buildroot}%{_datadir}/terminfo/g/ghostty
 %dir %{_datadir}/kio/servicemenus
 %{_datadir}/kio/servicemenus/com.mitchellh.ghostty.desktop
 
-%files -n nautilus-extension-ghostty
+%files nautilus-extension
 %{_datadir}/nautilus-python/extensions/ghostty.py
 
 %files neovim
