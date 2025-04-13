@@ -10,6 +10,16 @@
 %global         _build_id_links none
 %global         debug_package %{nil}
 
+%if 0%{?fedora}
+global vergen_git_sha Fedora
+%elif 0%{?suse_version}
+global vergen_git_sha openSUSE
+%elif 0%{?rhel}
+global vergen_git_sha RedHat
+%else
+global vergen_git_sha %{_os}
+%endif
+
 Name:           yazi
 Version:        VERSION
 Release:        1%{?dist}
@@ -18,15 +28,21 @@ License:        MIT
 Group:          Productivity/Text/Utilities
 URL:            https://github.com/sxyazi/yazi
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+%if ! 0%{?rhel} || 0%{?rhel} > 8
 Patch1:         001-system-lua.patch
+%endif
 Requires:       file
 
+BuildRequires:  cargo
+%if 0%{fedora} >= 42
+BuildRequires:  gawk
+BuildRequires:  oniguruma-devel
+%endif
 %if 0%{?suse_version}
 BuildRequires:  lua54-devel
 %else
 BuildRequires:  lua-devel >= 5.4
 %endif
-BuildRequires:  gcc, curl
 %if ! 0%{?rhel}
 BuildRequires:  ImageMagick
 %endif
@@ -99,18 +115,10 @@ The official zsh completion script for %{name}.
 %autosetup -p1
 
 %build
-# install toolchain
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source "$HOME/.cargo/env"
 export YAZI_GEN_COMPLETIONS=true
-%if 0%{?fedora}
-export VERGEN_GIT_SHA='Fedora'
-%elif 0%{?suse_version}
-export VERGEN_GIT_SHA='openSUSE'
-%elif 0%{?rhel}
-export VERGEN_GIT_SHA='RedHat'
-%else
-export VERGEN_GIT_SHA=%{_os}
+export VERGEN_GIT_SHA=%{vergen_git_sha}
+%if 0%{?fedora} >= 42
+export RUSTONIG_SYSTEM_LIBONIG=1
 %endif
 cargo build --release --locked
 
@@ -135,8 +143,10 @@ done
 
 %check
 export YAZI_GEN_COMPLETIONS=true
-export VERGEN_GIT_SHA=%{_os}
-source "$HOME/.cargo/env"
+export VERGEN_GIT_SHA=%{vergen_git_sha}
+%if 0%{?fedora} >= 42
+export RUSTONIG_SYSTEM_LIBONIG=1
+%endif
 cargo test --all
 
 
