@@ -11,13 +11,13 @@
 %global         debug_package %{nil}
 
 %if 0%{?fedora}
-global vergen_git_sha Fedora
+%global vergen_git_sha Fedora
 %elif 0%{?suse_version}
-global vergen_git_sha openSUSE
+%global vergen_git_sha openSUSE
 %elif 0%{?rhel}
-global vergen_git_sha RedHat
+%global vergen_git_sha RedHat
 %else
-global vergen_git_sha %{_os}
+%global vergen_git_sha %{_os}
 %endif
 
 Name:           yazi
