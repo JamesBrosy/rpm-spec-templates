@@ -33,16 +33,15 @@ Patch1:         001-system-lua.patch
 %endif
 Requires:       file
 
-BuildRequires:  cargo
-%if 0%{fedora} >= 42
-BuildRequires:  gawk
+%if 0%{?fedora} >= 42
 BuildRequires:  oniguruma-devel
 %endif
 %if 0%{?suse_version}
 BuildRequires:  lua54-devel
-%else
+%elif ! 0%{?rhel} || 0%{?rhel} > 8
 BuildRequires:  lua-devel >= 5.4
 %endif
+BuildRequires:  gcc, curl
 %if ! 0%{?rhel}
 BuildRequires:  ImageMagick
 %endif
@@ -115,6 +114,9 @@ The official zsh completion script for %{name}.
 %autosetup -p1
 
 %build
+# install toolchain
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source "$HOME/.cargo/env"
 export YAZI_GEN_COMPLETIONS=true
 export VERGEN_GIT_SHA=%{vergen_git_sha}
 %if 0%{?fedora} >= 42
@@ -144,6 +146,7 @@ done
 %check
 export YAZI_GEN_COMPLETIONS=true
 export VERGEN_GIT_SHA=%{vergen_git_sha}
+source "$HOME/.cargo/env"
 %if 0%{?fedora} >= 42
 export RUSTONIG_SYSTEM_LIBONIG=1
 %endif
