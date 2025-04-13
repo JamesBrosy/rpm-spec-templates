@@ -102,7 +102,15 @@ The official zsh completion script for %{name}.
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 export YAZI_GEN_COMPLETIONS=true
+%if 0%{?fedora}
+export VERGEN_GIT_SHA='Fedora'
+%elif 0%{?suse_version}
+export VERGEN_GIT_SHA='openSUSE'
+%elif 0%{?rhel}
+export VERGEN_GIT_SHA='RedHat'
+%else
 export VERGEN_GIT_SHA=%{_os}
+%endif
 cargo build --release --locked
 
 
