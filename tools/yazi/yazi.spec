@@ -14,7 +14,7 @@
 %global vergen_git_sha Fedora
 %elif 0%{?suse_version}
 %global vergen_git_sha openSUSE
-%elif 0%{?rhel}
+%elif 0%{?el8} || 0%{?el9}
 %global vergen_git_sha RedHat
 %else
 %global vergen_git_sha %{_os}
@@ -28,36 +28,28 @@ License:        MIT
 Group:          Productivity/Text/Utilities
 URL:            https://github.com/sxyazi/yazi
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-%if ! 0%{?rhel} || 0%{?rhel} > 8
-Patch1:         001-system-lua.patch
-%endif
 Requires:       file
 
-%if 0%{?fedora} >= 42
-BuildRequires:  oniguruma-devel
-%endif
-%if 0%{?suse_version}
-BuildRequires:  lua54-devel
-%elif ! 0%{?rhel} || 0%{?rhel} > 8
-BuildRequires:  lua-devel >= 5.4
-%endif
 BuildRequires:  gcc, curl
 %if ! 0%{?rhel}
 BuildRequires:  ImageMagick
 %endif
 
-Suggests:       ffmpegthumbnailer
-Suggests:       p7zip
-Suggests:       jq
-Suggests:       poppler
-Suggests:       fd
-Suggests:       ripgrep
-Suggests:       fzf
-Suggests:       zoxide
-Suggests:       ImageMagick
-Suggests:       wl-clipboard
-Suggests:       xsel
-Suggests:       chafa
+Recommends:     ffmpeg
+Recommends:     jq
+%if 0%{?suse_version}
+Recommends:     7zip
+Recommends:     poppler-tools
+%else
+Recommends:     p7zip
+Recommends:     p7zip-plugins
+Recommends:     poppler-utils
+%endif
+Recommends:     fd
+Recommends:     ripgrep
+Recommends:     fzf
+Recommends:     zoxide
+Recommends:     ImageMagick
 
 %description
 Yazi (means "duck") is a terminal file manager written in Rust, based on non-blocking async I/O. It aims to provide an efficient, user-friendly, and customizable file management experience.
@@ -113,15 +105,17 @@ The official zsh completion script for %{name}.
 %prep
 %autosetup -p1
 
+# Oniguruma fails to compile because gcc15 defaults to std=gnu23
+%if 0%{?fedora} >= 42
+  %global optflags %{optflags} -std=gnu17
+%endif
+
 %build
 # install toolchain
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 export YAZI_GEN_COMPLETIONS=true
 export VERGEN_GIT_SHA=%{vergen_git_sha}
-%if 0%{?fedora} >= 42
-export RUSTONIG_SYSTEM_LIBONIG=1
-%endif
 cargo build --release --locked
 
 
@@ -147,9 +141,6 @@ done
 export YAZI_GEN_COMPLETIONS=true
 export VERGEN_GIT_SHA=%{vergen_git_sha}
 source "$HOME/.cargo/env"
-%if 0%{?fedora} >= 42
-export RUSTONIG_SYSTEM_LIBONIG=1
-%endif
 cargo test --all
 
 
