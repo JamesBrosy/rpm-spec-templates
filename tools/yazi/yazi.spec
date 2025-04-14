@@ -40,12 +40,13 @@ Recommends:     jq
 %if 0%{?suse_version}
 Recommends:     7zip
 Recommends:     poppler-tools
+Recommends:     fd
 %else
 Recommends:     p7zip
 Recommends:     p7zip-plugins
 Recommends:     poppler-utils
+Recommends:     fd-find
 %endif
-Recommends:     fd
 Recommends:     ripgrep
 Recommends:     fzf
 Recommends:     zoxide
