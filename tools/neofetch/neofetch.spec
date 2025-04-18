@@ -25,6 +25,10 @@ Requires:       coreutils
 Requires:       gawk
 Requires:       grep
 Requires:       pciutils
+%if 0%{?suse_version}
+Recommends:     maim
+Recommends:     w3m-inline-image
+%else
 Recommends:     caca-utils
 Recommends:     ImageMagick
 Recommends:     w3m-img
@@ -33,6 +37,7 @@ Recommends:     xprop
 Recommends:     xrandr
 Recommends:     xrdb
 Recommends:     xwininfo
+%endif
 
 %description
 Neofetch displays information about your system next to an image,
