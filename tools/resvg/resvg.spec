@@ -7,6 +7,7 @@
 # Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
 #
 
+%global debug_package %{nil}
 %bcond check 1
 
 %global crate resvg
