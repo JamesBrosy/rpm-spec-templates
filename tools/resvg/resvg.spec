@@ -94,12 +94,12 @@ cargo install cargo-license
 
 %build
 source "$HOME/.cargo/env"
-cargo build --release --all
+cargo build --release --all-features --all
 cargo license --color never > LICENSE.dependencies
 
 %install
 install -Dspm 0755 ./target/release/%{name} %{buildroot}%{_bindir}/%{name}
-install -Dpm 0755 ./target/release/usvg %{buildroot}%{_bindir}/usvg
+install -Dspm 0755 ./target/release/usvg %{buildroot}%{_bindir}/usvg
 install -Dpm 0755 ./target/release/lib%{name}.so %{buildroot}%{_libdir}/lib%{name}.so
 install -Dpm 0644 ./target/release/lib%{name}.a %{buildroot}%{_libdir}/lib%{name}.a
 install -Dpm 0644 ./crates/c-api/*.h -t %{buildroot}%{_includedir}/
@@ -107,7 +107,7 @@ install -Dpm 0644 ./crates/c-api/*.h -t %{buildroot}%{_includedir}/
 %if %{with check}
 %check
 source "$HOME/.cargo/env"
-cargo test --release --all
+cargo test --release --all-features --all
 %endif
 
 %ldconfig_scriptlets -n lib%{name}
