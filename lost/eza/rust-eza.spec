@@ -22,7 +22,7 @@ Source:         %{url}/archive/v%{version}/%{crate}-%{version}.tar.gz
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          eza-fix-metadata-auto.diff
 
-BuildRequires:  anda-srpm-macros cargo-rpm-macros >= 24 pandoc
+BuildRequires:  cargo-rpm-macros >= 24 pandoc
 
 %global _description %{expand:
 A modern replacement for ls.}
@@ -37,8 +37,7 @@ License:        (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apa
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}
-%license LICENSE.txt
-%license LICENSES/CC-BY-4.0.txt
+%license LICENSES/*.txt
 %license LICENSE.dependencies
 %doc CHANGELOG.md
 %doc CODE_OF_CONDUCT.md
@@ -92,11 +91,15 @@ Fish command line completion support for %{crate}.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-%cargo_prep_online
+%cargo_prep
+
+%generate_buildrequires
+%cargo_generate_buildrequires
 
 %build
-%{cargo_license_summary_online}
-%{cargo_license_online} > LICENSE.dependencies
+%cargo_build
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %cargo_install
@@ -110,9 +113,9 @@ pandoc --standalone -f markdown -t man man/eza_colors.5.md > %{buildroot}%{_mand
 pandoc --standalone -f markdown -t man man/eza_colors-explanation.5.md > %{buildroot}%{_mandir}/man5/eza_colors-explanation.5
 
 # Completion files
-install -Dm0644 completions/bash/eza      "%{buildroot}%{_datadir}/bash-completion/completions/%{crate}"
-install -Dm0644 completions/zsh/_eza      "%{buildroot}%{_datadir}/zsh/site-functions/_%{crate}"
-install -Dm0644 completions/fish/eza.fish "%{buildroot}/%{_datadir}/fish/vendor_completions.d/%{crate}.fish"
+install -Dpm 0644 completions/bash/eza -t %{buildroot}/%{bash_completions_dir}/
+install -Dpm 0644 completions/fish/eza.fish -t %{buildroot}/%{fish_completions_dir}/
+install -Dpm 0644 completions/zsh/_eza -t %{buildroot}/%{zsh_completions_dir}/
 
 %if %{with check}
 %check
