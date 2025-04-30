@@ -4,9 +4,9 @@ tools,mise,mise,jdx,v2025.4.12,release,main
 tools,usage,usage,jdx,v2.1.1,release,main
 tools,zellij,zellij,zellij-org,v0.42.2,release,main
 tools,wezterm,wezterm,wezterm,1439661,commit,main
-sing-box,sing-box,sing-box,SagerNet,v1.11.9,release,main
-sing-box,sing-geoip,sing-geoip,SagerNet,20250412,release,main
-sing-box,sing-geosite,sing-geosite,SagerNet,20250428010409,release,main
+network,sing-box,sing-box,SagerNet,v1.11.9,release,main
+network,sing-geoip,sing-geoip,SagerNet,20250412,release,main
+network,sing-geosite,sing-geosite,SagerNet,20250428010409,release,main
 zsh-users,zsh-completions,zsh-completions,zsh-users,4f6441f,commit,master
 lost,neofetch,neofetch,dylanaraps,ccd5d9f,commit,master
 tools,neohtop,neohtop,Abdenasser,v1.1.2,release,main
