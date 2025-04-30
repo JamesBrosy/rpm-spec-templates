@@ -7,7 +7,6 @@
 # Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
 #
 
-%global         _build_id_links none
 %global         debug_package %{nil}
 %global         pkgname mise
 
@@ -19,6 +18,7 @@ Summary:        The front-end to your dev env
 License:        MIT
 URL:            https://github.com/jdx/%{pkgname}
 Source0:        %{url}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+Patch0:         mise-fix-metadata-auto.diff
 
 BuildRequires:  gcc, curl, openssl, openssl-devel, zlib, zlib-devel, perl
 
@@ -89,11 +89,10 @@ Setup script for %{name}
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 # build release
-export RUST_TRIPLE="$(rustc -vV | sed -n 's/host: //p')"
-cargo build --profile=serious --target "${RUST_TRIPLE}" --features openssl/vendored
-./target/${RUST_TRIPLE}/serious/%{pkgname} completion zsh  > target/_%{pkgname}
-./target/${RUST_TRIPLE}/serious/%{pkgname} completion bash > target/%{pkgname}
-./target/${RUST_TRIPLE}/serious/%{pkgname} completion fish > target/%{pkgname}.fish
+cargo build --release --all-features
+./target/release/%{pkgname} completion zsh  > target/_%{pkgname}
+./target/release/%{pkgname} completion bash > target/%{pkgname}
+./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
 
 cat << 'EOF' > target/%{pkgname}.sh
 # Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
@@ -110,13 +109,13 @@ EOF
 
 
 %install
-install -Dsm755 -T target/%{_arch}-unknown-linux-gnu/serious/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
-install -Dm644  -T man/man1/%{pkgname}.1     %{buildroot}%{_mandir}/man1/%{pkgname}.1
-install -Dm644  -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-functions/_%{pkgname}
-install -Dm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
-install -Dm644  -T target/%{pkgname}.fish    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
-install -Dm644  -T target/%{pkgname}.sh      %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}.sh
-install -Dm644  -T target/%{pkgname}_cf.fish %{buildroot}%{_sysconfdir}/fish/conf.d/%{pkgname}.fish
+install -Dspm755 -T target/release/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
+install -Dpm644  -T man/man1/%{pkgname}.1     %{buildroot}%{_mandir}/man1/%{pkgname}.1
+install -Dpm644  -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-functions/_%{pkgname}
+install -Dpm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
+install -Dpm644  -T target/%{pkgname}.fish    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
+install -Dpm644  -T target/%{pkgname}.sh      %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}.sh
+install -Dpm644  -T target/%{pkgname}_cf.fish %{buildroot}%{_sysconfdir}/fish/conf.d/%{pkgname}.fish
 install -dm755  %{buildroot}/usr/lib/%{pkgname}
 touch           %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
 
