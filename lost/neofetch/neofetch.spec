@@ -25,30 +25,26 @@ Requires:       coreutils
 Requires:       gawk
 Requires:       grep
 Requires:       pciutils
-%if 0%{?suse_version}
-Recommends:     maim
-Recommends:     w3m-inline-image
-%else
 Recommends:     caca-utils
 Recommends:     ImageMagick
+Recommends:     jp2a
 Recommends:     w3m-img
 Recommends:     xdpyinfo
 Recommends:     xprop
 Recommends:     xrandr
 Recommends:     xrdb
 Recommends:     xwininfo
-%endif
-
+ 
 %description
 Neofetch displays information about your system next to an image,
 your OS logo, or any ASCII file of your choice. The main purpose of Neofetch
 is to be used in screenshots to show other users what OS/distribution you're
 running, what theme/icons you're using and more.
-
+ 
 %prep
 %autosetup
-sed 's,/usr/bin/env bash,/bin/bash,g' -i neofetch
-
+sed 's,/usr/bin/env bash,/usr/bin/bash,g' -i neofetch
+ 
 %build
 
 %install
