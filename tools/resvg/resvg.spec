@@ -8,7 +8,6 @@
 #
 
 %global debug_package %{nil}
-%bcond check 1
 
 %global crate resvg
 
@@ -104,11 +103,9 @@ install -Dpm 0755 ./target/release/lib%{name}.so %{buildroot}%{_libdir}/lib%{nam
 install -Dpm 0644 ./target/release/lib%{name}.a %{buildroot}%{_libdir}/lib%{name}.a
 install -Dpm 0644 ./crates/c-api/*.h -t %{buildroot}%{_includedir}/
 
-%if %{with check}
 %check
 source "$HOME/.cargo/env"
 cargo test --release --all-features --all
-%endif
 
 %ldconfig_scriptlets -n lib%{name}
 
