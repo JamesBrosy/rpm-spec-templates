@@ -88,8 +88,10 @@ Setup script for %{name}
 # install toolchain
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
+cargo install cargo-license
 # build release
 cargo build --release --all-features
+cargo license --color never > LICENSE.dependencies
 ./target/release/%{pkgname} completion zsh  > target/_%{pkgname}
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
 ./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
@@ -121,7 +123,7 @@ touch           %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
 
 
 %files
-%license LICENSE
+%license LICENSE LICENSE.dependencies
 %{_bindir}/%{pkgname}
 %{_mandir}/man1/*
 %dir /usr/lib/%{pkgname}
