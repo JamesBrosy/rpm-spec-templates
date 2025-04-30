@@ -16,3 +16,4 @@
 - [ghostty](tools/ghostty)
 - [scrcpy](tools/scrcpy)
 - [eza](lost/eza)
+- [resvg](tools/resvg)
