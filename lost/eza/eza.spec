@@ -11,12 +11,13 @@
 
 %global crate eza
 
-Name:           rust-eza
+Name:           %{crate}
 Version:        VERSION
 Release:        1%{?dist}
 Summary:        Modern replacement for ls
 
-License:        EUPL-1.2
+License:        (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND EUPL-1.2 AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR CC0-1.0) AND (MIT OR Zlib OR Apache-2.0) AND MPL-2.0 AND Unicode-3.0 AND (Unlicense OR MIT)
+# LICENSE.dependencies contains a full license breakdown
 URL:            https://github.com/eza-community/eza
 Source:         %{url}/archive/v%{version}/%{crate}-%{version}.tar.gz
 # Automatically generated patch to strip dependencies and normalize metadata
@@ -29,14 +30,7 @@ A modern replacement for ls.}
 
 %description %{_description}
 
-%package     -n %{crate}
-Summary:        %{summary}
-License:        (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND EUPL-1.2 AND MIT AND (MIT OR Apache-2.0) AND (MIT OR Apache-2.0 OR CC0-1.0) AND (MIT OR Zlib OR Apache-2.0) AND MPL-2.0 AND Unicode-3.0 AND (Unlicense OR MIT)
-# LICENSE.dependencies contains a full license breakdown
-
-%description -n %{crate} %{_description}
-
-%files       -n %{crate}
+%files
 %license LICENSES/*.txt
 %license LICENSE.dependencies
 %doc CHANGELOG.md
