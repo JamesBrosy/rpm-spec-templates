@@ -101,7 +101,7 @@ Fish command line completion support for %{crate}.
 %{cargo_license} > LICENSE.dependencies
 
 %install
-%cargo_install
+install -Dpm 0755 target/release/eza -t %{buildroot}%{_bindir}
 
 # Manpage
 install -d -m 0755 %{buildroot}%{_mandir}/man1/
