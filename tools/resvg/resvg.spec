@@ -87,7 +87,7 @@ This package contains development files.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 
-bash <(curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs) --profile=minimal -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 cargo install cargo-license
 
