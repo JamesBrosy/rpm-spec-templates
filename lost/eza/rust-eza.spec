@@ -91,10 +91,9 @@ Fish command line completion support for %{crate}.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-%generate_buildrequires
-%cargo_generate_buildrequires
 
-%cargo_prep
+%__cargo vendor
+%cargo_prep -v vendor
 
 %build
 %cargo_build
