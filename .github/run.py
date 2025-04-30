@@ -26,11 +26,11 @@ def get_latest_version(row: Series, github: Github) -> str:
     mode = row.get("mode")
     if mode == "commit":
         return github.get_repo(
-            f'{row.get("author")}/{row.get("package name")}').get_branch(row.get("branch")).commit.sha[0:7]
+            f'{row.get("author")}/{row.get("repo name")}').get_branch(row.get("branch")).commit.sha[0:7]
     elif mode == "release":
-        return github.get_repo(f'{row.get("author")}/{row.get("package name")}').get_latest_release().tag_name
+        return github.get_repo(f'{row.get("author")}/{row.get("repo name")}').get_latest_release().tag_name
     elif mode == "tag":
-        return github.get_repo(f'{row.get("author")}/{row.get("package name")}').get_tags()[0].name
+        return github.get_repo(f'{row.get("author")}/{row.get("repo name")}').get_tags()[0].name
     else:
         return ''
 
