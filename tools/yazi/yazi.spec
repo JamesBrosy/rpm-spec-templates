@@ -50,7 +50,9 @@ Recommends:     fd-find
 Recommends:     ripgrep
 Recommends:     fzf
 Recommends:     zoxide
+Recommends:     resvg
 Recommends:     ImageMagick
+Recommends:     git
 
 %description
 Yazi (means "duck") is a terminal file manager written in Rust, based on non-blocking async I/O. It aims to provide an efficient, user-friendly, and customizable file management experience.
