@@ -82,7 +82,7 @@ BuildArch:      noarch
 Setup script for %{name}
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 # install toolchain
