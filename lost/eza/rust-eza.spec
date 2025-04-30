@@ -50,43 +50,43 @@ License:        (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apa
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 
-%package        bash-completion
+%package     -n %{crate}-bash-completion
 Summary:        Bash Completion for %{crate}
 Group:          System/Shells
 Requires:       %{crate} = %{version}
 Supplements:    (%{crate} and bash-completion)
 BuildArch:      noarch
 
-%description    bash-completion
+%description -n %{crate}-bash-completion
 Bash command line completion support for %{crate}.
 
-%files          bash-completion
+%files       -n %{crate}-bash-completion
 %{_datadir}/bash-completion/completions/%{crate}
 
-%package        zsh-completion
+%package     -n %{crate}-zsh-completion
 Summary:        Zsh Completion for %{crate}
 Group:          System/Shells
 Requires:       %{crate} = %{version}
 Supplements:    (%{crate} and zsh)
 BuildArch:      noarch
 
-%description    zsh-completion
+%description -n %{crate}-zsh-completion
 Zsh command line completion support for %{crate}.
 
-%files          zsh-completion
+%files       -n %{crate}-zsh-completion
 %{_datadir}/zsh/site-functions/_%{crate}
 
-%package        fish-completion
+%package     -n %{crate}-fish-completion
 Summary:        Fish completion for %{crate}
 Group:          System/Shells
 Requires:       %{crate} = %{version}
 Supplements:    (%{crate} and fish)
 BuildArch:      noarch
 
-%description    fish-completion
+%description -n %{crate}-fish-completion
 Fish command line completion support for %{crate}.
 
-%files          fish-completion
+%files       -n %{crate}-fish-completion
 %{_datadir}/fish/vendor_completions.d/%{crate}.fish
 
 %prep
