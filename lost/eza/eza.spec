@@ -9,6 +9,7 @@
 
 %bcond check 1
 
+%global debug_package %{nil}
 %global crate eza
 
 Name:           %{crate}
