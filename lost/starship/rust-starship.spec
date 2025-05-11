@@ -24,7 +24,7 @@ Source:         %{url}/archive/v%{version}/%{crate}-%{version}.tar.gz
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          starship-fix-metadata-auto.diff
 
-BuildRequires:  rust-packaging
+BuildRequires:  rust-packaging, git
 
 %global _description %{expand:
 Minimal, blazing-fast, and infinitely customizable prompt for any shell! ☄🌌️.}
