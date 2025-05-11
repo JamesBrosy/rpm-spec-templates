@@ -55,7 +55,7 @@ License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (0BSD OR MIT OR Apach
 %{cargo_license} > LICENSE.dependencies
 
 %install
-install -Dspm 0755 target/release/${crate} -t %{buildroot}%{_bindir}
+install -Dspm 0755 target/release/%{crate} -t %{buildroot}%{_bindir}
 
 %if %{with check}
 %check
