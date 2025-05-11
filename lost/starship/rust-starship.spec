@@ -38,7 +38,7 @@ License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (0BSD OR MIT OR Apach
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}
-%license LICENSES
+%license LICENSE
 %license LICENSE.dependencies
 %doc README.md
 %{_bindir}/%{crate}
