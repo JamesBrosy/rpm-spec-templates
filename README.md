@@ -17,3 +17,4 @@
 - [scrcpy](tools/scrcpy)
 - [eza](lost/eza)
 - [resvg](tools/resvg)
+- [starship](lost/starship)
