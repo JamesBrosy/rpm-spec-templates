@@ -43,6 +43,45 @@ License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (0BSD OR MIT OR Apach
 %doc README.md
 %{_bindir}/%{crate}
 
+%package     -n %{crate}-bash-completion
+Summary:        Bash Completion for %{crate}
+Group:          System/Shells
+Requires:       %{crate} = %{version}
+Supplements:    (%{crate} and bash-completion)
+BuildArch:      noarch
+
+%description -n %{crate}-bash-completion
+Bash command line completion support for %{crate}.
+
+%files       -n %{crate}-bash-completion
+%{_datadir}/bash-completion/completions/%{crate}
+
+%package     -n %{crate}-zsh-completion
+Summary:        Zsh Completion for %{crate}
+Group:          System/Shells
+Requires:       %{crate} = %{version}
+Supplements:    (%{crate} and zsh)
+BuildArch:      noarch
+
+%description -n %{crate}-zsh-completion
+Zsh command line completion support for %{crate}.
+
+%files       -n %{crate}-zsh-completion
+%{_datadir}/zsh/site-functions/_%{crate}
+
+%package     -n %{crate}-fish-completion
+Summary:        Fish completion for %{crate}
+Group:          System/Shells
+Requires:       %{crate} = %{version}
+Supplements:    (%{crate} and fish)
+BuildArch:      noarch
+
+%description -n %{crate}-fish-completion
+Fish command line completion support for %{crate}.
+
+%files       -n %{crate}-fish-completion
+%{_datadir}/fish/vendor_completions.d/%{crate}.fish
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 
@@ -54,8 +93,15 @@ License:        ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (0BSD OR MIT OR Apach
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
+./target/release/%{crate} completions bash > target/%{crate}
+./target/release/%{crate} completions zsh > target/_%{crate}
+./target/release/%{crate} completions fish > target/%{crate}.fish
+
 %install
 install -Dspm 0755 target/release/%{crate} -t %{buildroot}%{_bindir}
+install -Dpm644 target/%{crate}      -t %{buildroot}%{_datadir}/bash-completion/completions
+install -Dpm644 target/_%{crate}     -t %{buildroot}%{_datadir}/zsh/site-functions
+install -Dpm644 target/%{crate}.fish -t %{buildroot}%{_datadir}/fish/vendor_completions.d
 
 %if %{with check}
 %check
