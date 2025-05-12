@@ -1,6 +1,6 @@
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -162,11 +162,4 @@
+@@ -162,13 +162,6 @@
    "signatures",
  ] }
 
@@ -12,3 +12,5 @@
 -sevenz-rust = "0.6"
 -
  [build-dependencies]
+ built = { version = "0.8", features = ["chrono"] }
+ cfg_aliases = "0.2"
