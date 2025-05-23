@@ -7,6 +7,9 @@
 # Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
 #
 
+# don't generate Requires for /usr/bin/pwsh / PowerShell
+%global __requires_exclude_from ^%{cargo_registry}/%{crate}-%{version_no_tilde}/src/init/starship\\.ps1$
+
 %bcond check 1
 
 %global debug_package %{nil}
@@ -15,7 +18,7 @@
 Name:           rust-starship
 Version:        VERSION
 Release:        1%{?dist}
-Summary:        Minimal, blazing-fast, and infinitely customizable prompt for any shell! ☄🌌️
+Summary:        Minimal, blazing-fast, and infinitely customizable prompt for any shell
 
 License:        ISC
 # LICENSE.dependencies contains a full license breakdown
@@ -85,13 +88,10 @@ Fish command line completion support for %{crate}.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 
-%__cargo vendor
-%cargo_prep -v vendor
-
 %build
-%cargo_build
-%{cargo_license_summary}
-%{cargo_license} > LICENSE.dependencies
+cargo build -j$(nproc) --all --release --locked
+cargo tree --workspace --edges no-build,no-dev,no-proc-macro --no-dedupe --target all --prefix none \
+--format '{l}: {p}' | sort -u | sed -e "s: ($(pwd)[^)]*)::g" -e 's: / :/:g' -e 's:/: OR :g' > LICENSE.dependencies
 
 ./target/release/%{crate} completions bash > target/%{crate}
 ./target/release/%{crate} completions zsh > target/_%{crate}
@@ -105,7 +105,7 @@ install -Dpm644 target/%{crate}.fish -t %{buildroot}%{_datadir}/fish/vendor_comp
 
 %if %{with check}
 %check
-%cargo_test
+cargo test -j$(nproc) --all --release --locked
 %endif
 
 %changelog
