@@ -7,9 +7,6 @@
 # Please submit bugfixes or comments via https://github.com/JamesBrosy/rpm-spec-templates
 #
 
-# don't generate Requires for /usr/bin/pwsh / PowerShell
-%global __requires_exclude_from ^%{cargo_registry}/%{crate}-%{version_no_tilde}/src/init/starship\\.ps1$
-
 %bcond check 1
 
 %global debug_package %{nil}
