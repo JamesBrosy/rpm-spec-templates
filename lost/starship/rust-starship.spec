@@ -86,9 +86,9 @@ Fish command line completion support for %{crate}.
 %autosetup -n %{crate}-%{version} -p1
 
 %build
-cargo build -j$(nproc) --release --locked
+cargo build -j$(nproc) --all --release --locked
 cargo tree --workspace --edges no-build,no-dev,no-proc-macro --no-dedupe --target all --prefix none \
---format '{l}: {p}' | sort -u | sed -e "s: ($(pwd)[^)]*)::g" -e 's: / :/:g' -e 's:/: OR :g' > LICENSE.dependencies
+--locked --format '{l}: {p}' | sort -u | sed -e "s: ($(pwd)[^)]*)::g" -e 's: / :/:g' -e 's:/: OR :g' > LICENSE.dependencies
 
 ./target/release/%{crate} completions bash > target/%{crate}
 ./target/release/%{crate} completions zsh > target/_%{crate}
@@ -102,7 +102,7 @@ install -Dpm644 target/%{crate}.fish -t %{buildroot}%{_datadir}/fish/vendor_comp
 
 %if %{with check}
 %check
-cargo test -j$(nproc) --release --locked
+cargo test -j$(nproc) --all --release --locked
 %endif
 
 %changelog
